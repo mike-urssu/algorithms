@@ -4,7 +4,7 @@ package shortestPath;
  * 다익스트라 선형 알고리즘 기본 예제
  */
 public class Dijkstra {
-    public static final int INF = 100000;
+    public static final int INF = 1000000000;
 
     public static final int number = 6;
 
@@ -17,12 +17,12 @@ public class Dijkstra {
             {INF, INF, 5, INF, 2, 0},
     };
 
-    public static int[] distance = new int[number];
+    public static int[] distances = new int[number];
 
     public static boolean[] isVisited = new boolean[number];
 
     public void linearDijkstra(int startIndex) {
-        System.arraycopy(graph[startIndex], 0, distance, 0, number);
+        System.arraycopy(graph[startIndex], 0, distances, 0, number);
         isVisited[startIndex] = true;
 
         for (int i = 0; i < number - 2; i++) {
@@ -31,8 +31,8 @@ public class Dijkstra {
 
             for (int j = 0; j < number; j++) {
                 if (!isVisited[j]) {
-                    if (distance[j] > distance[index] + graph[index][j])
-                        distance[j] = distance[index] + graph[index][j];
+                    if (distances[j] > distances[index] + graph[index][j])
+                        distances[j] = distances[index] + graph[index][j];
                 }
             }
         }
@@ -43,8 +43,8 @@ public class Dijkstra {
         int smallestIndex = 0;
 
         for (int i = 0; i < number; i++) {
-            if (!isVisited[i] && min > distance[i]) {
-                min = distance[i];
+            if (!isVisited[i] && min > distances[i]) {
+                min = distances[i];
                 smallestIndex = i;
             }
         }
@@ -56,7 +56,7 @@ public class Dijkstra {
         dijkstra.linearDijkstra(0);
 
         // 0 2 3 1 2 4
-        for (int distance : distance)
+        for (int distance : distances)
             System.out.print(distance + " ");
     }
 }
