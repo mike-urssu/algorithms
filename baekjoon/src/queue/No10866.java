@@ -9,7 +9,7 @@ import java.util.LinkedList;
 /**
  * https://www.acmicpc.net/problem/10866
  */
-public class Main {
+public class No10866 {
     public static Deque<Integer> deque = new LinkedList<>();
 
     public static StringBuilder builder = new StringBuilder();
