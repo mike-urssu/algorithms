@@ -1,5 +1,12 @@
 package interviewQuestion;
 
+/**
+ * Implement the function findRoots to find the roots of the quadratic equation: ax2 + bx + c = 0. If the equation has only one solution, the function should return that solution as both elements of the Roots. The equation will always have at least one solution.
+ * <p>
+ * The roots of the quadratic equation can be found with the following formula: A quadratic equation.
+ * <p>
+ * For example, the roots of the equation 2x2 + 10x + 8 = 0 are -1 and -4.
+ */
 public class QuadraticEquation {
     public static Roots findRoots(double a, double b, double c) {
         double real = ((-1) * b) / (2 * a);

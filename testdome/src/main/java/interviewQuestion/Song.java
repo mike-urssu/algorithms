@@ -1,5 +1,20 @@
 package interviewQuestion;
 
+/**
+ * A playlist is considered a repeating playlist if any of the songs contain a reference to a previous song in the playlist. Otherwise, the playlist will end with the last song which points to null.
+ * <p>
+ * Implement a function isRepeatingPlaylist that, efficiently with respect to time used, returns true if a playlist is repeating or false if it is not.
+ * <p>
+ * For example, the following code prints "true" as both songs point to each other.
+ * <p>
+ * Song first = new Song("Hello");
+ * Song second = new Song("Eye of the tiger");
+ * <p>
+ * first.setNextSong(second);
+ * second.setNextSong(first);
+ * <p>
+ * System.out.println(first.isRepeatingPlaylist());
+ */
 public class Song {
     private String name;
     private Song nextSong;

@@ -1,5 +1,15 @@
 package interviewQuestion;
 
+/**
+ * Using JUnit 4's Assert class, write tests for the Account class that cover the following cases:
+ * <p>
+ * The deposit and withdraw methods will not accept negative numbers.
+ * Account cannot overstep its overdraft limit.
+ * The deposit and withdraw methods will deposit or withdraw the correct amount, respectively.
+ * The withdraw and deposit methods return the correct results.
+ * <p>
+ * Each of the test case methods should be in the AccountTest class and have the Test annotation.
+ */
 public class Account {
     private double balance;
     private double overdraftLimit;
