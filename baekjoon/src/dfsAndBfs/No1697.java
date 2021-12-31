@@ -1,4 +1,4 @@
-package binarySearch;
+package dfsAndBfs;
 
 import java.io.*;
 import java.util.LinkedList;
