@@ -70,4 +70,26 @@ public class No10816 {
         setValues();
         printCardsCount();
     }
+
+    /**
+     * Map을 이용한 풀이
+     *
+     * public static void main(String[] args) throws IOException {
+     *         Map<Integer, Integer> map = new HashMap<>();
+     *         int numberOfInput = Integer.parseInt(reader.readLine());
+     *         tokenizer = new StringTokenizer(reader.readLine());
+     *         for (int i = 0; i < numberOfInput; i++) {
+     *             int number = Integer.parseInt(tokenizer.nextToken());
+     *             map.put(number, map.getOrDefault(number, 0) + 1);
+     *         }
+     *
+     *         numberOfInput = Integer.parseInt(reader.readLine());
+     *         tokenizer = new StringTokenizer(reader.readLine());
+     *         for (int i = 0; i < numberOfInput; i++) {
+     *             int number = Integer.parseInt(tokenizer.nextToken());
+     *             writer.write(map.getOrDefault(number, 0) + " ");
+     *         }
+     *         writer.flush();
+     *     }
+     */
 }
