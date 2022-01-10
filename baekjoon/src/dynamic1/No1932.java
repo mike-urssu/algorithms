@@ -3,6 +3,7 @@ package dynamic1;
 import java.io.*;
 import java.util.StringTokenizer;
 
+/* 위에서 밑으로 계산
 public class No1932 {
     public static final BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
     public static final BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(System.out));
@@ -44,6 +45,42 @@ public class No1932 {
     public static void main(String[] args) throws IOException {
         setValues();
         writer.write(String.valueOf(getMaxScore()));
+        writer.newLine();
+        writer.flush();
+    }
+}
+ */
+
+// 밑에서 위로 계산
+public class No1932 {
+    public static final BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+    public static final BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(System.out));
+    public static StringTokenizer tokenizer;
+
+    public static int[][] scores;
+
+    public static void setValues() throws IOException {
+        int numberOfInput = Integer.parseInt(reader.readLine());
+        scores = new int[numberOfInput][numberOfInput];
+
+        for (int i = 0; i < numberOfInput; i++) {
+            tokenizer = new StringTokenizer(reader.readLine());
+            for (int j = 0; j <= i; j++)
+                scores[i][j] = Integer.parseInt(tokenizer.nextToken());
+        }
+    }
+
+    public static void updateScores() {
+        for (int i = scores.length - 2; i >= 0; i--) {
+            for (int j = 0; j <= i; j++)
+                scores[i][j] += Math.max(scores[i + 1][j], scores[i + 1][j + 1]);
+        }
+    }
+
+    public static void main(String[] args) throws IOException {
+        setValues();
+        updateScores();
+        writer.write(String.valueOf(scores[0][0]));
         writer.newLine();
         writer.flush();
     }
