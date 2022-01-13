@@ -6,8 +6,12 @@ import java.io.*
  * https://www.acmicpc.net/problem/2839
  */
 fun main() {
-    val sugar = readLine().toInt()
-    write(getBags(sugar).toString())
+    val reader = BufferedReader(InputStreamReader(System.`in`))
+    val writer = BufferedWriter(OutputStreamWriter(System.out))
+
+    val sugar = reader.readLine().toInt()
+    writer.write(getBags(sugar).toString())
+    writer.flush()
 }
 
 fun getBags(sugar: Int): Int {
@@ -20,18 +24,4 @@ fun getBags(sugar: Int): Int {
         }
     }
     return -1
-}
-
-fun readLine(): String {
-    BufferedReader(InputStreamReader(System.`in`)).use { reader ->
-        return reader.readLine()
-    }
-}
-
-fun write(text: Any) {
-    BufferedWriter(OutputStreamWriter(System.out)).use { writer ->
-        writer.write(text.toString())
-        writer.newLine()
-        writer.flush()
-    }
 }
