@@ -14,10 +14,8 @@ fun main() {
 
     val schedules = arrayListOf<Array<Int>>()
     val numberOfInput = reader.readLine().toInt()
-    for (i in 0 until numberOfInput) {
-        val schedule = reader.readLine().split(' ')
-        schedules.add(arrayOf(schedule[0].toInt(), schedule[1].toInt()))
-    }
+    for (i in 0 until numberOfInput)
+        schedules.add(reader.readLine().split(' ').map { time -> time.toInt() }.toTypedArray())
 
     schedules.sortWith(compareBy({ it[1] }, { it[0] }))
 
