@@ -14,21 +14,13 @@ fun main() {
     val reader = BufferedReader(InputStreamReader(System.`in`))
     val number = reader.readLine()
 
-    if (canBeMultipleOf2(number) && canBeMultipleOf3(number) && number.contains('0'))
+    if (canBeMultipleOf3(number) && number.contains('0'))
         printMultipleOf30(number)
     else {
         writer.write((-1).toString())
         writer.flush()
         return
     }
-}
-
-fun canBeMultipleOf2(number: String): Boolean {
-    for (character in number) {
-        if ((character.digitToInt()) % 2 == 0)
-            return true
-    }
-    return false
 }
 
 fun canBeMultipleOf3(number: String): Boolean {
