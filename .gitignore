@@ -24,8 +24,4 @@ hs_err_pid*
 
 .idea
 out
-baekjoon/baekjoon.iml
-baekjoon-classification/baekjoon-classification.iml
-
-testdome/.gradle
-testdome/build
+*.iml
