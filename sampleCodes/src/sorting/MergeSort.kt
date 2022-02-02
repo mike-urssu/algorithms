@@ -1,41 +1,27 @@
 package sorting
 
-import java.io.BufferedReader
 import java.io.BufferedWriter
-import java.io.InputStreamReader
 import java.io.OutputStreamWriter
 
-/**
- * https://www.acmicpc.net/problem/2751
- */
-class No2751 {
-    private val reader = BufferedReader(InputStreamReader(System.`in`))
+class MergeSort {
     private val writer = BufferedWriter(OutputStreamWriter(System.out))
-    private lateinit var numbers: IntArray
-    private lateinit var sortedNumbers: IntArray
+
+    private val numbers = intArrayOf(1, 10, 5, 8, 7, 6, 4, 3, 2, 9)
+    private val sortedNumbers = IntArray(numbers.size)
 
     fun main() {
-        val numberOfInput = reader.readLine().toInt()
-        numbers = IntArray(numberOfInput)
-        sortedNumbers = IntArray(numberOfInput)
-        for (i in 0 until numberOfInput)
-            numbers[i] = reader.readLine().toInt()
-
         mergeSort(numbers, 0, numbers.size - 1)
-
-        for (number in numbers) {
-            writer.write(number.toString())
-            writer.newLine()
-        }
+        for (number in numbers)
+            writer.write("$number ")
         writer.flush()
     }
 
     private fun mergeSort(numbers: IntArray, startIndex: Int, endIndex: Int) {
         if (startIndex < endIndex) {
-            val midIndex = (startIndex + endIndex) / 2
-            mergeSort(numbers, startIndex, midIndex)
-            mergeSort(numbers, midIndex + 1, endIndex)
-            merge(numbers, startIndex, midIndex, endIndex)
+            val mid = (startIndex + endIndex) / 2
+            mergeSort(numbers, startIndex, mid)
+            mergeSort(numbers, mid + 1, endIndex)
+            merge(numbers, startIndex, mid, endIndex)
         }
     }
 
@@ -63,5 +49,5 @@ class No2751 {
 }
 
 fun main() {
-    No2751().main()
+    MergeSort().main()
 }
