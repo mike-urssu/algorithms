@@ -21,8 +21,28 @@ fun main() {
     }
     heights.sort()
 
-    removeTwoDwarves(heights, sum)
+    val pairs = HashMap<Int, Int>()
+    for (height in heights)
+        pairs[height] = sum - height
 
+    for (key in pairs.keys) {
+        val value = pairs[key]!!
+        if (sum == (key + value) && pairs.containsKey(value) && key != value) {
+            pairs.remove(value)
+            pairs.remove(key)
+            break
+        }
+    }
+
+    val sortedHeights = pairs.keys.toList().sorted()
+    for (height in sortedHeights) {
+        writer.write(height.toString())
+        writer.newLine()
+    }
+    writer.flush()
+
+    /*
+    removeTwoDwarves(heights, sum)
     for (height in heights) {
         if (height != -1) {
             writer.write(height.toString())
@@ -30,6 +50,7 @@ fun main() {
         }
     }
     writer.flush()
+    */
 }
 
 fun removeTwoDwarves(heights: IntArray, sum: Int) {
