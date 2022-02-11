@@ -24,23 +24,27 @@ fun main() {
 
     var sum = 0
     while (!zeroAndNegativeNumbers.isEmpty()) {
-        val number1 = zeroAndNegativeNumbers.poll()
-        if (zeroAndNegativeNumbers.isEmpty()) {
-            sum += number1
-            break
+        while (zeroAndNegativeNumbers.size > 1) {
+            val number1 = zeroAndNegativeNumbers.poll()
+            val number2 = zeroAndNegativeNumbers.poll()
+            sum += number1 * number2
         }
-        val number2 = zeroAndNegativeNumbers.poll()
-        sum += number1 * number2
+        if (!zeroAndNegativeNumbers.isEmpty()) {
+            val number1 = zeroAndNegativeNumbers.poll()
+            sum += number1
+        }
     }
 
     while (!positiveNumbers.isEmpty()) {
-        val number1 = positiveNumbers.poll()
-        if (positiveNumbers.isEmpty()) {
-            sum += number1
-            break
+        while (positiveNumbers.size > 1) {
+            val number1 = positiveNumbers.poll()
+            val number2 = positiveNumbers.poll()
+            sum += (number1 * number2).coerceAtLeast(number1 + number2)
         }
-        val number2 = positiveNumbers.poll()
-        sum += (number1 * number2).coerceAtLeast(number1 + number2)
+        if (!positiveNumbers.isEmpty()) {
+            val number1 = positiveNumbers.poll()
+            sum += number1
+        }
     }
 
     writer.write(sum.toString())
