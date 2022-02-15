@@ -4,6 +4,7 @@ import java.io.BufferedReader
 import java.io.BufferedWriter
 import java.io.InputStreamReader
 import java.io.OutputStreamWriter
+import java.util.*
 
 /**
  * https://www.acmicpc.net/problem/1015
@@ -13,11 +14,14 @@ fun main() {
     val writer = BufferedWriter(OutputStreamWriter(System.out))
 
     val numberOfInput = reader.readLine().toInt()
-    val numbers = reader.readLine().split(' ').map { it.toInt() }.toIntArray()
-    val sortedNumbers = numbers.sorted()
+    val numbers = IntArray(numberOfInput)
+    val tokenizer = StringTokenizer(reader.readLine())
+    for (i in numbers.indices)
+        numbers[i] = tokenizer.nextToken().toInt()
     val arrayP = IntArray(numberOfInput)
 
-    for (i in sortedNumbers.indices) {
+    val sortedNumbers = numbers.sorted()
+    for (i in numbers.indices) {
         val index = numbers.indexOf(sortedNumbers[i])
         numbers[index] = -1
         arrayP[index] = i
