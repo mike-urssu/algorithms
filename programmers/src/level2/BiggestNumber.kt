@@ -1,6 +1,6 @@
 package level2
 
-class Solution {
+class BiggestNumber {
     fun solution(numbers: IntArray): String {
         val sortedNumbers = numbers.sortedWith { it, other ->
             val itAsString = it.toString()
@@ -19,7 +19,7 @@ class Solution {
 }
 
 fun main() {
-    val solution = Solution()
+    val solution = BiggestNumber()
     var numbers = intArrayOf(6, 10, 2)
     println(solution.solution(numbers))
 
