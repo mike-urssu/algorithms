@@ -1,5 +1,8 @@
 package level2
 
+/**
+ * https://programmers.co.kr/learn/courses/30/lessons/42888
+ */
 class OpenChatting {
     fun solution(record: Array<String>): Array<String> {
         val users = HashMap<String, String>()

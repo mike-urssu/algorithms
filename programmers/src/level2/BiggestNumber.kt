@@ -1,5 +1,8 @@
 package level2
 
+/**
+ * https://programmers.co.kr/learn/courses/30/lessons/42746
+ */
 class BiggestNumber {
     fun solution(numbers: IntArray): String {
         val sortedNumbers = numbers.sortedWith { it, other ->
