@@ -5,7 +5,7 @@ import kotlin.math.ceil
 /**
  * https://programmers.co.kr/learn/courses/30/lessons/62048
  */
-class Solution {
+class NormalSquare {
     fun solution(w: Int, h: Int): Long {
         val gcd = getGCD(w, h)
         val x = (w / gcd).toLong()
@@ -38,7 +38,7 @@ class Solution {
 }
 
 fun main() {
-    val solution = Solution()
+    val solution = NormalSquare()
     println(solution.solution(8, 12) == 80L)
     println(solution.solution(100000000, 99999999) == 9999999700000004L)
 }
