@@ -13,11 +13,11 @@ class StringCompression {
     fun solution(string: String): Int {
         var length = string.length
         for (lengthOfSubstring in 1..length / 2)
-            length = length.coerceAtMost(getLength(string, lengthOfSubstring))
+            length = length.coerceAtMost(getCompressedStringLength(string, lengthOfSubstring))
         return length
     }
 
-    private fun getLength(string: String, lengthOfSubstring: Int): Int {
+    private fun getCompressedStringLength(string: String, lengthOfSubstring: Int): Int {
         compressString(string, lengthOfSubstring)
 
         val builder = StringBuilder()
