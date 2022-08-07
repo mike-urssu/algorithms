@@ -1,10 +1,14 @@
-package yourssu.week1
+package week1
 
 import java.io.BufferedReader
 import java.io.BufferedWriter
 import java.io.InputStreamReader
 import java.io.OutputStreamWriter
 import java.util.*
+
+/**
+ * https://www.acmicpc.net/problem/10828
+ */
 
 private val reader = BufferedReader(InputStreamReader(System.`in`))
 private val writer = BufferedWriter(OutputStreamWriter(System.out))
