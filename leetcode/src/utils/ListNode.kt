@@ -4,7 +4,10 @@ class ListNode(var `val`: Int) {
     var next: ListNode? = null
 
     companion object {
-        fun getNodeListFromIntArray(numbers: IntArray): ListNode {
+        fun getNodeListFromIntArray(numbers: IntArray?): ListNode? {
+            if (numbers == null)
+                return null
+
             val listNode = ListNode(numbers[0])
             var currentNode = listNode
 
