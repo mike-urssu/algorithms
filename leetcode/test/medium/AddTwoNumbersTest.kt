@@ -1,6 +1,5 @@
-package easy
+package medium
 
-import medium.AddTwoNumbers
 import utils.ListNode
 
 fun main() {
