@@ -1,5 +1,7 @@
 package easy
 
+import utils.ListNode
+
 class MergeTwoSortedLists {
     fun mergeTwoLists(list1: ListNode?, list2: ListNode?): ListNode? {
         return if (list1 == null)
