@@ -11,7 +11,7 @@ import java.io.OutputStreamWriter
 private val reader = BufferedReader(InputStreamReader(System.`in`))
 private val writer = BufferedWriter(OutputStreamWriter(System.out))
 
-val months = intArrayOf(0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31)
+private val months = intArrayOf(0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31)
 
 fun main() {
     val date1 = reader.readLine().split(" ").map { it.toInt() }
