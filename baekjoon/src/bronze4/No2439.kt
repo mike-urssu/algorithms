@@ -14,15 +14,9 @@ private val writer = BufferedWriter(OutputStreamWriter(System.out))
 fun main() {
     val number = reader.readLine().toInt()
     repeat(number) { i ->
-        repeat(number - i - 1) {
-            writer.write(" ")
-        }
-        repeat(i + 1) {
-            writer.write("*")
-        }
+        writer.write(" ".repeat(number - i - 1))
+        writer.write("*".repeat(i + 1))
         writer.newLine()
     }
-    writer.flush()
-
     writer.flush()
 }
