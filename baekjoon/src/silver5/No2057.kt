@@ -19,15 +19,12 @@ fun main() {
         writer.write("NO")
     } else {
         var currentFactorial = BigInteger.ONE
-        var currentNumber = BigInteger.ONE
+        var currentNumber = BigInteger.ZERO
 
-        while (number >= currentFactorial) {
+        while (number >= currentFactorial.multiply(currentNumber.plus(BigInteger.ONE))) {
             currentNumber = currentNumber.plus(BigInteger.ONE)
             currentFactorial = currentFactorial.multiply(currentNumber)
         }
-        currentFactorial = currentFactorial.divide(currentNumber)
-        currentNumber = currentNumber.minus(BigInteger.ONE)
-
 
         while (currentNumber > BigInteger.ZERO) {
             number = number.minus(currentFactorial)
