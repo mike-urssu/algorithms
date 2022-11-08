@@ -11,34 +11,23 @@ import java.io.OutputStreamWriter
 private val reader = BufferedReader(InputStreamReader(System.`in`))
 private val writer = BufferedWriter(OutputStreamWriter(System.out))
 
-private val combination = Array(11) { IntArray(11) { -1 } }
+private val combination = Array(11) { IntArray(11) }
 
 fun main() {
     val numbers = reader.readLine().split(" ").map { it.toInt() }
-    repeat(11) { i ->
-        combination[i][0] = 1
-        combination[i][i] = 1
-    }
-    writer.write("${getCombination(numbers[0], numbers[1])}")
+    setCombination(numbers[0])
+    writer.write("${combination[numbers[0]][numbers[1]]}")
     writer.flush()
 }
 
-private fun getCombination(n: Int, r: Int): Int {
-    if (r == 0 || r == n) {
-        return 1
+private fun setCombination(n: Int) {
+    for (i in 0..n) {
+        for (j in 0..i) {
+            if (j == 0 || j == i) {
+                combination[i][j] = 1
+            } else {
+                combination[i][j] = combination[i - 1][j - 1] + combination[i - 1][j]
+            }
+        }
     }
-
-    if (combination[n - 1][r - 1] == -1) {
-        setCombination(n - 1, r - 1)
-    }
-
-    if (combination[n - 1][r] == -1) {
-        setCombination(n - 1, r)
-    }
-
-    return getCombination(n - 1, r - 1) + getCombination(n - 1, r)
-}
-
-private fun setCombination(n: Int, r: Int) {
-    combination[n][r] = getCombination(n - 1, r - 1) + getCombination(n - 1, r)
 }
