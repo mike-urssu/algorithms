@@ -27,10 +27,10 @@ fun main() {
     writer.flush()
 }
 
-fun getCost(seconds: List<Int>, timeUnit: Int, costUnit: Int): Int {
+fun getCost(seconds: List<Int>, unitSecond: Int, unitCost: Int): Int {
     var cost = 0
     seconds.forEach { second ->
-        cost += (second + timeUnit) / timeUnit * costUnit
+        cost += (second + unitSecond) / unitSecond * unitCost
     }
     return cost
 }
