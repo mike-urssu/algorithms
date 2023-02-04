@@ -1,4 +1,4 @@
-package bronze3
+package bronze2
 
 import java.io.BufferedReader
 import java.io.BufferedWriter
@@ -6,17 +6,19 @@ import java.io.InputStreamReader
 import java.io.OutputStreamWriter
 
 /**
- * https://www.acmicpc.net/problem/2442
+ * https://www.acmicpc.net/problem/1225
  */
 private val reader = BufferedReader(InputStreamReader(System.`in`))
 private val writer = BufferedWriter(OutputStreamWriter(System.out))
 
 fun main() {
-    val number = reader.readLine().toInt()
-    for (i in 1..number) {
-        writer.write(" ".repeat(number - i))
-        writer.write("*".repeat(2 * i - 1))
-        writer.newLine()
+    val (a, b) = reader.readLine().split(" ")
+    var mul = 0L
+    for (i in a) {
+        for (j in b) {
+            mul += i.digitToInt() * j.digitToInt()
+        }
     }
+    writer.write("$mul")
     writer.flush()
 }
