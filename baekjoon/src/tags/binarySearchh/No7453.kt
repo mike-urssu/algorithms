@@ -13,13 +13,13 @@ private val writer = BufferedWriter(OutputStreamWriter(System.out))
 
 fun main() {
     val n = reader.readLine().toInt()
-    val arrayA = IntArray(n)
-    val arrayB = IntArray(n)
-    val arrayC = IntArray(n)
-    val arrayD = IntArray(n)
+    val arrayA = LongArray(n)
+    val arrayB = LongArray(n)
+    val arrayC = LongArray(n)
+    val arrayD = LongArray(n)
 
     repeat(n) { i ->
-        val (a, b, c, d) = reader.readLine().split(" ").map { it.toInt() }
+        val (a, b, c, d) = reader.readLine().split(" ").map { it.toLong() }
         arrayA[i] = a
         arrayB[i] = b
         arrayC[i] = c
@@ -28,17 +28,14 @@ fun main() {
 
     val newArray1 = mergeArrays(arrayA, arrayB)
     val newArray2 = mergeArrays(arrayC, arrayD)
-    var count = 0L
-    for (number in newArray1) {
-        count += getUpperBound(newArray2, -number) - getLowerBound(newArray2, -number)
-    }
+    val count = newArray1.sumOf { getLowerBound(newArray2, -it.toInt() + 1) - getLowerBound(newArray2, -it.toInt()) }
 
     writer.write("$count")
     writer.flush()
 }
 
-private fun mergeArrays(array1: IntArray, array2: IntArray): IntArray {
-    val newArray = IntArray(array1.size * array2.size)
+private fun mergeArrays(array1: LongArray, array2: LongArray): LongArray {
+    val newArray = LongArray(array1.size * array2.size)
     for (i in array1.indices) {
         for (j in array2.indices) {
             newArray[array1.size * i + j] = array1[i] + array2[j]
@@ -47,7 +44,7 @@ private fun mergeArrays(array1: IntArray, array2: IntArray): IntArray {
     return newArray.sortedArray()
 }
 
-private fun getLowerBound(numbers: IntArray, number: Int): Int {
+private fun getLowerBound(numbers: LongArray, number: Int): Long {
     var low = -1
     var high = numbers.size
     while (low + 1 < high) {
@@ -58,19 +55,5 @@ private fun getLowerBound(numbers: IntArray, number: Int): Int {
             low = mid
         }
     }
-    return high
-}
-
-private fun getUpperBound(numbers: IntArray, number: Int): Int {
-    var low = -1
-    var high = numbers.size
-    while (low + 1 < high) {
-        val mid = (low + high) / 2
-        if (numbers[mid] <= number) {
-            low = mid
-        } else {
-            high = mid
-        }
-    }
-    return high
+    return high.toLong()
 }
