@@ -8,7 +8,7 @@ import java.io.OutputStreamWriter
 /**
  * https://www.acmicpc.net/problem/1080
  */
-val reader = BufferedReader(InputStreamReader(System.`in`))
+private val reader = BufferedReader(InputStreamReader(System.`in`))
 
 fun main() {
     val writer = BufferedWriter(OutputStreamWriter(System.out))
