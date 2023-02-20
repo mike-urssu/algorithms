@@ -8,7 +8,7 @@ import java.io.OutputStreamWriter
 /**
  * https://www.acmicpc.net/problem/10610
  */
-val writer = BufferedWriter(OutputStreamWriter(System.out))
+private val writer = BufferedWriter(OutputStreamWriter(System.out))
 
 fun main() {
     val reader = BufferedReader(InputStreamReader(System.`in`))
@@ -23,14 +23,14 @@ fun main() {
     }
 }
 
-fun canBeMultipleOf3(number: String): Boolean {
+private fun canBeMultipleOf3(number: String): Boolean {
     var sum = 0
     for (character in number)
         sum += character.digitToInt()
     return sum % 3 == 0
 }
 
-fun printMultipleOf30(number: String) {
+private fun printMultipleOf30(number: String) {
     val numbersInCharacter = number.toCharArray().sorted().reversed()
     for (character in numbersInCharacter)
         writer.write(character.toString())
