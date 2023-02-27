@@ -1,4 +1,4 @@
-package tags.binarySearchh
+package tags.binarySearch
 
 import java.io.BufferedReader
 import java.io.BufferedWriter
@@ -6,26 +6,29 @@ import java.io.InputStreamReader
 import java.io.OutputStreamWriter
 
 /**
- * https://www.acmicpc.net/problem/1166
+ * https://www.acmicpc.net/problem/1300
  */
 private val reader = BufferedReader(InputStreamReader(System.`in`))
 private val writer = BufferedWriter(OutputStreamWriter(System.out))
 
 fun main() {
-    val (n, l, w, h) = reader.readLine().split(" ").map { it.toLong() }
-    var low = 0.0
-    var high = 1000000001.0
+    val n = reader.readLine().toInt()
+    val k = reader.readLine().toInt()
 
-    repeat(1000) {
+    var low = 0
+    var high = 1000000000
+
+    while (low + 1 < high) {
         val mid = (low + high) / 2
-        val boxes = (l / mid).toLong() * (w / mid).toLong() * (h / mid).toLong()
-        if (boxes >= n) {
-            low = mid
-        } else {
+        val count = (1..n).sumOf { (mid / it).coerceAtMost(n) }
+
+        if (count >= k) {
             high = mid
+        } else {
+            low = mid
         }
     }
 
-    writer.write("$low")
+    writer.write("$high")
     writer.flush()
 }

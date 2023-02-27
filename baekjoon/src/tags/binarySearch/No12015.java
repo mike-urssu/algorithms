@@ -1,4 +1,4 @@
-package tags.binarySearchh;
+package tags.binarySearch;
 
 import java.io.*;
 import java.util.ArrayList;
