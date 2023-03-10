@@ -20,7 +20,7 @@ fun main() {
     writer.flush()
 }
 
-fun getMinimumTapeCount(length: Int, leaks: List<Int>): Int {
+private fun getMinimumTapeCount(length: Int, leaks: List<Int>): Int {
     var count = 0
     var lastLeakPoint = 0
     for (leak in leaks) {

@@ -25,7 +25,7 @@ fun main() {
     writer.flush()
 }
 
-fun getMinimumRoomCount(schedules: List<IntArray>): Int {
+private fun getMinimumRoomCount(schedules: List<IntArray>): Int {
     val queue = PriorityQueue<Int>()
     queue.add(schedules[0][1])
     for (i in 1 until schedules.size) {
@@ -39,7 +39,7 @@ fun getMinimumRoomCount(schedules: List<IntArray>): Int {
 /**
  * 시간 초과
  */
-fun getMinimumRoomCount2(schedules: List<IntArray>): Int {
+private fun getMinimumRoomCount2(schedules: List<IntArray>): Int {
     val rooms = mutableListOf<IntArray>()
     rooms.add(schedules[0])
     for (i in 1 until schedules.size) {

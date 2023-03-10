@@ -37,7 +37,7 @@ fun main() {
     writer.flush()
 }
 
-fun getMinimumCost(brokenLine: Int, sixLineCost: Int, oneLineCost: Int): Int {
+private fun getMinimumCost(brokenLine: Int, sixLineCost: Int, oneLineCost: Int): Int {
     var cost = brokenLine / 6 * sixLineCost
     if (brokenLine % 6 != 0)
         cost += sixLineCost.coerceAtMost((brokenLine % 6) * oneLineCost)

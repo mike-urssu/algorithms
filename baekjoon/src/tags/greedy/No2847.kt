@@ -21,7 +21,7 @@ fun main() {
     writer.flush()
 }
 
-fun getReducedScore(scores: IntArray): Int {
+private fun getReducedScore(scores: IntArray): Int {
     var reducedScore = 0
     var highestScore = scores[0]
     for (i in 1 until scores.size) {

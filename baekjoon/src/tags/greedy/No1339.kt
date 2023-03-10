@@ -22,7 +22,7 @@ fun main() {
     writer.flush()
 }
 
-fun getMax(words: List<String>): Int {
+private fun getMax(words: List<String>): Int {
     val numbers = IntArray(26)
     for (word in words) {
         for (i in word.indices)

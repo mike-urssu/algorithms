@@ -16,7 +16,7 @@ fun main() {
     writer.flush()
 }
 
-fun getPolyomino(board: String): String {
+private fun getPolyomino(board: String): String {
     val words = board.split('.')
     for (word in words) {
         if (word.length % 2 == 1)

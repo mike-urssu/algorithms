@@ -34,7 +34,7 @@ fun main() {
     writer.flush()
 }
 
-fun getIndexToPlugOut(plugs: List<Int>, products: List<Int>, startIndex: Int): Int {
+private fun getIndexToPlugOut(plugs: List<Int>, products: List<Int>, startIndex: Int): Int {
     val subProducts = products.subList(startIndex, products.size)
     for (i in plugs.indices) {
         if (!subProducts.contains(plugs[i]))

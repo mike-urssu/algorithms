@@ -37,7 +37,7 @@ fun main() {
     writer.flush()
 }
 
-fun getMetrics(height: Int, width: Int): Array<IntArray> {
+private fun getMetrics(height: Int, width: Int): Array<IntArray> {
     val metrics = Array(height) { IntArray(width) }
     for (i in 0 until height) {
         val row = reader.readLine()
@@ -47,14 +47,14 @@ fun getMetrics(height: Int, width: Int): Array<IntArray> {
     return metrics
 }
 
-fun reverseMetrics(metrics: Array<IntArray>, col: Int, row: Int) {
+private fun reverseMetrics(metrics: Array<IntArray>, col: Int, row: Int) {
     for (i in col until col + 3) {
         for (j in row until row + 3)
             metrics[i][j] = if (metrics[i][j] == 1) 0 else 1
     }
 }
 
-fun isMetricsMatches(firstMetrics: Array<IntArray>, secondMetrics: Array<IntArray>): Boolean {
+private fun isMetricsMatches(firstMetrics: Array<IntArray>, secondMetrics: Array<IntArray>): Boolean {
     for (i in firstMetrics.indices) {
         for (j in 0 until firstMetrics[i].size) {
             if (firstMetrics[i][j] != secondMetrics[i][j])

@@ -24,7 +24,7 @@ fun main() {
     writer.flush()
 }
 
-fun getMaxEmployees(rankings: List<IntArray>): Int {
+private fun getMaxEmployees(rankings: List<IntArray>): Int {
     var employeesCount = rankings.size
     val sortedRankings = rankings.sortedWith(compareBy { it[0] })
     var min = sortedRankings[0][1]

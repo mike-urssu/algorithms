@@ -33,7 +33,7 @@ fun main() {
     writer.flush()
 }
 
-fun sumSequence(positiveNumbers: List<Int>, negativeNumbers: List<Int>): Int {
+private fun sumSequence(positiveNumbers: List<Int>, negativeNumbers: List<Int>): Int {
     var sum = 0
 
     var index = 0

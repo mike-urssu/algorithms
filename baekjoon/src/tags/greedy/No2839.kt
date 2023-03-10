@@ -14,7 +14,7 @@ fun main() {
     writer.flush()
 }
 
-fun getBags(sugar: Int): Int {
+private fun getBags(sugar: Int): Int {
     var bags = 0
     for (fiveKgBag in sugar / 5 downTo 0) {
         if ((sugar - 5 * fiveKgBag) % 3 == 0) {

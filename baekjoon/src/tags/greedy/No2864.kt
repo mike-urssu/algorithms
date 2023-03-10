@@ -18,10 +18,10 @@ fun main() {
     writer.flush()
 }
 
-fun getMinimumSum(numbers: List<String>): Int {
+private fun getMinimumSum(numbers: List<String>): Int {
     return numbers[0].replace('6', '5').toInt() + numbers[1].replace('6', '5').toInt()
 }
 
-fun getMaximumSum(numbers: List<String>): Int {
+private fun getMaximumSum(numbers: List<String>): Int {
     return numbers[0].replace('5', '6').toInt() + numbers[1].replace('5', '6').toInt()
 }

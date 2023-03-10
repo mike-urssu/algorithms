@@ -18,7 +18,7 @@ fun main() {
     writer.flush()
 }
 
-fun getChangedCount(source: Long, target: Long): Long {
+private fun getChangedCount(source: Long, target: Long): Long {
     val queue = LinkedList<LongArray>()
     queue.add(longArrayOf(source, 1))
 
@@ -35,7 +35,7 @@ fun getChangedCount(source: Long, target: Long): Long {
     return -1
 }
 
-fun getChangedCount2(source: Int, target: Int): Int {
+private fun getChangedCount2(source: Int, target: Int): Int {
     var count = 1
     var changingNumber = target
     while (changingNumber >= source) {

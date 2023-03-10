@@ -19,7 +19,7 @@ fun main() {
     writer.flush()
 }
 
-fun getNumberOfKilledEnemies(heights: IntArray): Int {
+private fun getNumberOfKilledEnemies(heights: IntArray): Int {
     val killedEnemies = arrayListOf<Int>()
     killedEnemies.add(0)
     var index = 0

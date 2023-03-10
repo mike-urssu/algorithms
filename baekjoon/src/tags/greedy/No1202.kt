@@ -33,7 +33,7 @@ fun main() {
     writer.flush()
 }
 
-fun getMaximumCost(jewels: List<IntArray>, bags: IntArray): Long {
+private fun getMaximumCost(jewels: List<IntArray>, bags: IntArray): Long {
     var cost = 0L
     val queue = PriorityQueue(Comparator.reverseOrder<Int>())
     var jewelIndex = 0

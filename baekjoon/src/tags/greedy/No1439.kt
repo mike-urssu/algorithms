@@ -21,7 +21,7 @@ fun main() {
     writer.flush()
 }
 
-fun getReverseZeroToOneCount(binary: String): Int {
+private fun getReverseZeroToOneCount(binary: String): Int {
     var count = 0
     var isPreviousZero = false
     for (character in binary) {
@@ -36,7 +36,7 @@ fun getReverseZeroToOneCount(binary: String): Int {
     return count
 }
 
-fun getReverseOneToZeroCount(binary: String): Int {
+private fun getReverseOneToZeroCount(binary: String): Int {
     var count = 0
     var isPreviousOne = false
     for (character in binary) {

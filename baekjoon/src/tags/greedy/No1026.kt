@@ -24,7 +24,7 @@ fun main() {
     writer.flush()
 }
 
-fun getIndex(index: Int, array: Array<Int>): Int {
+private fun getIndex(index: Int, array: Array<Int>): Int {
     val number = array[index]
     var count = 0
     for (i in array.indices) {
