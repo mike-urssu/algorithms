@@ -2,7 +2,6 @@ package tags.string
 
 import java.util.Deque
 import java.util.LinkedList
-import java.util.StringTokenizer
 
 /**
  * https://www.acmicpc.net/problem/5430
@@ -40,12 +39,9 @@ fun main() {
 }
 
 private fun getDeque(s: String): Deque<Int> {
-    val deque: Deque<Int> = LinkedList()
-    val numbers = StringTokenizer(s, "[],")
-    while (numbers.hasMoreTokens()) {
-        deque.add(numbers.nextToken().toInt())
-    }
-    return deque
+    val pattern = Regex("\\d+")
+    val numbers = pattern.findAll(s).map { it.value.toInt() }.toList()
+    return LinkedList(numbers)
 }
 
 private fun getAnswer(deque: Deque<Int>, isError: Boolean, isInOrder: Boolean): String {
