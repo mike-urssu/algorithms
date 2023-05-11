@@ -52,22 +52,10 @@ private fun getAnswer(deque: Deque<Int>, isError: Boolean, isInOrder: Boolean): 
     return if (isError) {
         "error"
     } else {
-        val answer = StringBuilder()
-        if (deque.isNotEmpty()) {
-            if (isInOrder) {
-                answer.append(deque.pollFirst())
-                while (deque.isNotEmpty()) {
-                    answer.append(",")
-                    answer.append(deque.pollFirst())
-                }
-            } else {
-                answer.append(deque.pollLast())
-                while (deque.isNotEmpty()) {
-                    answer.append(",")
-                    answer.append(deque.pollLast())
-                }
-            }
+        if (isInOrder) {
+            "[${deque.joinToString(",")}]"
+        } else {
+            "[${deque.reversed().joinToString(",")}]"
         }
-        "[$answer]"
     }
 }
