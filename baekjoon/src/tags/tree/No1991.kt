@@ -6,13 +6,13 @@ package tags.tree
 private val nodes = getNodes()
 
 fun main() {
-    printPreorderTraversal('A')
+    printPreorderTraversal(nodes['A']!!)
     println()
 
-    printInorderTraversal('A')
+    printInorderTraversal(nodes['A']!!)
     println()
 
-    printPostorderTraversal('A')
+    printPostorderTraversal(nodes['A']!!)
     println()
 }
 
@@ -38,32 +38,20 @@ private fun getNodes(): Map<Char, Node> {
     return nodes
 }
 
-private fun printPreorderTraversal(name: Char) {
-    print(name)
-    if (nodes[name]?.leftChild != null) {
-        printPreorderTraversal(nodes[name]!!.leftChild!!.name)
-    }
-    if (nodes[name]?.rightChild != null) {
-        printPreorderTraversal(nodes[name]!!.rightChild!!.name)
-    }
+private fun printPreorderTraversal(node: Node) {
+    print(node.name)
+    node.leftChild?.let { printPreorderTraversal(node.leftChild!!) }
+    node.rightChild?.let { printPreorderTraversal(node.rightChild!!) }
 }
 
-private fun printInorderTraversal(name: Char) {
-    if (nodes[name]?.leftChild != null) {
-        printInorderTraversal(nodes[name]!!.leftChild!!.name)
-    }
-    print(name)
-    if (nodes[name]?.rightChild != null) {
-        printInorderTraversal(nodes[name]!!.rightChild!!.name)
-    }
+private fun printInorderTraversal(node: Node) {
+    node.leftChild?.let { printInorderTraversal(node.leftChild!!) }
+    print(node.name)
+    node.rightChild?.let { printInorderTraversal(node.rightChild!!) }
 }
 
-private fun printPostorderTraversal(name: Char) {
-    if (nodes[name]?.leftChild != null) {
-        printPostorderTraversal(nodes[name]!!.leftChild!!.name)
-    }
-    if (nodes[name]?.rightChild != null) {
-        printPostorderTraversal(nodes[name]!!.rightChild!!.name)
-    }
-    print(name)
+private fun printPostorderTraversal(node: Node) {
+    node.leftChild?.let { printPostorderTraversal(node.leftChild!!) }
+    node.rightChild?.let { printPostorderTraversal(node.rightChild!!) }
+    print(node.name)
 }
