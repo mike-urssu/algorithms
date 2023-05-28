@@ -3,19 +3,15 @@ package tags.prefixSum
 /**
  * https://www.acmicpc.net/problem/11658
  */
-private val graph = Array(1025) { IntArray(1025) }
-private val tree = Array(1025) { IntArray(1025) }
+private lateinit var tree: Array<IntArray>
 
 fun main() {
     val (n, m) = readln().split(" ").map { it.toInt() }
-    (1..n).forEach { i ->
-        val numbers = readln().split(" ").map { it.toInt() }.toIntArray()
-        (1..n).forEach { j -> graph[i][j] = numbers[j - 1] }
-    }
-
+    val graph = Array(n) { readln().split(" ").map { it.toInt() }.toIntArray() }
+    tree = Array(n + 1) { IntArray(n + 1) }
     (1..n).forEach { i ->
         (1..n).forEach { j ->
-            update(n, i, j, graph[i][j])
+            update(n, i, j, graph[i - 1][j - 1])
         }
     }
 
@@ -26,8 +22,8 @@ fun main() {
             val x = numbers[1]
             val y = numbers[2]
             val c = numbers[3]
-            update(n, x, y, c - graph[x][y])
-            graph[x][y] = c
+            update(n, x, y, c - graph[x - 1][y - 1])
+            graph[x - 1][y - 1] = c
         } else {
             val x1 = numbers[1]
             val y1 = numbers[2]
