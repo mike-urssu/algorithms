@@ -1,4 +1,4 @@
-package tags.dynamic;
+package tags.dp;
 
 import java.io.*;
 import java.util.StringTokenizer;

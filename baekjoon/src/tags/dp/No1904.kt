@@ -1,4 +1,4 @@
-package tags.dynamic
+package tags.dp
 
 /**
  * https://www.acmicpc.net/problem/1904
