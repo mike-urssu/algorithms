@@ -5,7 +5,7 @@ import kotlin.math.abs
 /**
  * https://www.acmicpc.net/problem/9663
  */
-lateinit var graph: IntArray
+private lateinit var graph: IntArray
 private var count = 0
 
 fun main() {
