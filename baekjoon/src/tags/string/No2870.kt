@@ -4,6 +4,7 @@ package tags.string
  * https://www.acmicpc.net/problem/2870
  */
 import java.math.BigInteger
+import java.util.regex.Pattern
 
 fun main() {
     val n = readln().toInt()
@@ -17,23 +18,9 @@ fun main() {
 
 private fun getNumbers(s: String): List<BigInteger> {
     val numbers = mutableListOf<BigInteger>()
-    var startIndex = 0
-    var endIndex = 0
-    while (endIndex < s.length) {
-        if (s[endIndex].isDigit()) {
-            endIndex++
-        } else {
-            if (startIndex == endIndex) {
-                startIndex++
-                endIndex++
-            } else {
-                numbers.add(s.substring(startIndex, endIndex).toBigInteger())
-                startIndex = ++endIndex
-            }
-        }
-    }
-    if (s.last().isDigit()) {
-        numbers.add(s.substring(startIndex, endIndex).toBigInteger())
+    val matcher = Pattern.compile("(\\d+)").matcher(s)
+    while (matcher.find()) {
+        numbers.add(matcher.group().toBigInteger())
     }
     return numbers
 }
