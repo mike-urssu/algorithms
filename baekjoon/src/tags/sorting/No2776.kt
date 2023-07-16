@@ -43,7 +43,7 @@ fun main() {
     writer.flush()
 }
 
-fun binarySearch(numbers: List<Int>, number: Int): Boolean {
+private fun binarySearch(numbers: List<Int>, number: Int): Boolean {
     if (number !in numbers[0]..numbers[numbers.size - 1])
         return false
 
