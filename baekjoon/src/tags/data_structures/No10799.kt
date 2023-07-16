@@ -1,4 +1,4 @@
-package tags.dataStructure
+package tags.data_structures
 
 import java.io.BufferedReader
 import java.io.BufferedWriter
@@ -7,25 +7,23 @@ import java.io.OutputStreamWriter
 import java.util.*
 
 /**
- * https://www.acmicpc.net/problem/10773
+ * https://www.acmicpc.net/problem/10799
  */
 fun main() {
     val reader = BufferedReader(InputStreamReader(System.`in`))
     val writer = BufferedWriter(OutputStreamWriter(System.out))
-    val stack = Stack<Int>()
+    val stack = Stack<Char>()
 
-    val numberOfInput = reader.readLine().toInt()
-    repeat(numberOfInput) {
-        val number = reader.readLine().toInt()
-        if (number == 0)
-            stack.pop()
-        else
-            stack.push(number)
-    }
-
+    val parentheses = reader.readLine()
     var sum = 0
-    while (!stack.isEmpty())
-        sum += stack.pop()
+    for (i in parentheses.indices) {
+        if (parentheses[i] == '(')
+            stack.push(parentheses[i])
+        else {
+            stack.pop()
+            sum += if (parentheses[i - 1] == '(') stack.size else 1
+        }
+    }
     writer.write("$sum")
     writer.flush()
 }

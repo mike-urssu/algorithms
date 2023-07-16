@@ -1,4 +1,4 @@
-package tags.dataStructure
+package tags.data_structures
 
 import java.io.BufferedReader
 import java.io.BufferedWriter
