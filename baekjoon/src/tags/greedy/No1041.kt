@@ -9,16 +9,17 @@ fun main() {
     val sum = if (n == 1L) {
         numbers.sum() - numbers.max()
     } else {
-        val wall = n * n * 5L
-        val wall3 = 4L
-        val wall2 = 4 * (n - 2) * 2 + 4
-        val wall1 = wall - wall3 * 3 - wall2 * 2
-        getMin(numbers, wall1, wall2, wall3)
+        getMin(n, numbers)
     }
     println(sum)
 }
 
-private fun getMin(numbers: IntArray, wall1: Long, wall2: Long, wall3: Long): Long {
+private fun getMin(n: Long, numbers: IntArray): Long {
+    val wall = n * n * 5L
+    val wall3 = 4L
+    val wall2 = 4 * (n - 2) * 2 + 4
+    val wall1 = wall - wall3 * 3 - wall2 * 2
+
     var sum = 0L
     sum += numbers.min() * wall1
     sum += getSumOfTwoWalls(numbers) * wall2
