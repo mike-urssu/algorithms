@@ -29,18 +29,23 @@ private fun getDp(n: Int, matrices: Array<Array<Pair<Int, Int>>>): Array<IntArra
     val dp = Array(n + 1) { IntArray(n + 1) }
     for (i in n - 1 downTo 1) {
         for (j in i + 1..n) {
-            dp[i][j] = Int.MAX_VALUE
-            if (i + 1 == j) {
-                dp[i][j] = mul(matrices, i, i, i, j)
-            } else {
-                for (k in i until j) {
-                    dp[i][j] = dp[i][j].coerceAtMost(mul(matrices, i, k, k + 1, j) + dp[i][k] + dp[k + 1][j])
-                }
-            }
+            dp[i][j] = calculate(matrices, dp, i, j)
         }
     }
     return dp
 }
 
-private fun mul(matrices: Array<Array<Pair<Int, Int>>>, r1: Int, c1: Int, r2: Int, c2: Int) =
-    matrices[r1][c1].first * matrices[r1][c1].second * matrices[r2][c2].second
+private fun calculate(matrices: Array<Array<Pair<Int, Int>>>, dp: Array<IntArray>, i: Int, j: Int): Int {
+    var min = Int.MAX_VALUE
+    if (i + 1 == j) {
+        min = min.coerceAtMost(matrices[i][i].first * matrices[i][i].second * matrices[j][j].second)
+    } else {
+        for (k in i until j) {
+            min = min.coerceAtMost(
+                matrices[i][k].first * matrices[i][k].second * matrices[k + 1][j].second
+                        + dp[i][k] + dp[k + 1][j]
+            )
+        }
+    }
+    return min
+}
