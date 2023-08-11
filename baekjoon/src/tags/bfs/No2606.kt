@@ -13,8 +13,7 @@ fun main() {
         val (x, y) = readln().split(" ").map { it.toInt() }
         union(x, y)
     }
-    val count = (2..n).count { find(it) == parents[1] }
-    println(count)
+    println(parents.count { find(it) == 1 } - 1)
 }
 
 private fun union(x: Int, y: Int) {
