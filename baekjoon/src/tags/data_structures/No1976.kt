@@ -44,7 +44,5 @@ private fun find(n: Int): Int {
     return parents[n]
 }
 
-private fun areConnected(m: Int, cities: IntArray): Boolean {
-    val parent = find(cities[0])
-    return (1 until m).all { i -> parent == find(cities[i]) }
-}
+private fun areConnected(m: Int, cities: IntArray) =
+    (0 until m - 1).all { i -> find(cities[i]) == find(cities[i + 1]) }
