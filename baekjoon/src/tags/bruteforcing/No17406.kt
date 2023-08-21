@@ -31,6 +31,7 @@ fun main() {
 private fun setMin(k: Int, index: Int) {
     if (index == k) {
         clonedGraph = Array(graph.size) { i -> graph[i].copyOf() }
+
         orders.forEach { i ->
             val (r, c, s) = rotations[i]
             rotate(clonedGraph, r, c, s)
@@ -50,19 +51,28 @@ private fun setMin(k: Int, index: Int) {
 }
 
 private fun rotate(graph: Array<IntArray>, r: Int, c: Int, s: Int) {
-    val clone = Array(graph.size) { i -> graph[i].copyOf() }
     for (k in 1..s) {
+        val rightTop = graph[r - k][c + k]
+        val rightBottom = graph[r + k][c + k]
+        val leftBottom = graph[r + k][c - k]
+
         for (j in c + k downTo c - k + 1) {
-            graph[r - k][j] = clone[r - k][j - 1]
+            graph[r - k][j] = graph[r - k][j - 1]
         }
-        for (i in r - k until r + k) {
-            graph[i][c - k] = clone[i + 1][c - k]
-        }
-        for (j in c - k until c + k) {
-            graph[r + k][j] = clone[r + k][j + 1]
-        }
+
         for (i in r + k downTo r - k + 1) {
-            graph[i][c + k] = clone[i - 1][c + k]
+            graph[i][c + k] = graph[i - 1][c + k]
         }
+        graph[r - k + 1][c + k] = rightTop
+
+        for (j in c - k until c + k) {
+            graph[r + k][j] = graph[r + k][j + 1]
+        }
+        graph[r + k][c + k - 1] = rightBottom
+
+        for (i in r - k until r + k) {
+            graph[i][c - k] = graph[i + 1][c - k]
+        }
+        graph[r + k - 1][c - k] = leftBottom
     }
 }
