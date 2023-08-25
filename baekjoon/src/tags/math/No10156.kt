@@ -5,5 +5,5 @@ package tags.math
  */
 fun main() {
     val (k, n, m) = readln().split(" ").map { it.toInt() }
-    println(k * n - m)
+    println(maxOf(k * n - m, 0))
 }
