@@ -3,33 +3,45 @@ package tags.bfs
 /**
  * https://www.acmicpc.net/problem/2606
  */
-private lateinit var parents: IntArray
+import java.util.LinkedList
+import java.util.Queue
+
+private lateinit var computers: Array<MutableList<Int>>
+private lateinit var isVisited: BooleanArray
 
 fun main() {
     val n = readln().toInt()
     val m = readln().toInt()
-    parents = IntArray(n + 1) { it }
+    computers = getComputers(n, m)
+    isVisited = BooleanArray(n + 1)
+
+    bfs()
+
+    println(isVisited.count { it } - 1)
+}
+
+private fun getComputers(n: Int, m: Int): Array<MutableList<Int>> {
+    val computers = Array(n + 1) { mutableListOf<Int>() }
     repeat(m) {
         val (x, y) = readln().split(" ").map { it.toInt() }
-        union(x, y)
+        computers[x].add(y)
+        computers[y].add(x)
     }
-    println(parents.count { find(it) == 1 } - 1)
+    return computers
 }
 
-private fun union(x: Int, y: Int) {
-    val px = find(x)
-    val py = find(y)
-    if (px <= py) {
-        parents[py] = px
-    } else {
-        parents[px] = py
-    }
-}
+private fun bfs() {
+    val queue: Queue<Int> = LinkedList()
+    queue.add(1)
+    isVisited[1] = true
 
-private fun find(n: Int): Int {
-    if (parents[n] == n) {
-        return n
+    while (queue.isNotEmpty()) {
+        val p = queue.poll()
+        for (c in computers[p]) {
+            if (!isVisited[c]) {
+                isVisited[c] = true
+                queue.add(c)
+            }
+        }
     }
-    parents[n] = find(parents[n])
-    return parents[n]
 }
