@@ -45,10 +45,6 @@ private fun getDistances(n: Int, k: Int): IntArray {
     queue.add(Pair(k, 0))
     while (queue.isNotEmpty()) {
         val (v, w) = queue.poll()
-        if (distances[v] < w) {
-            continue
-        }
-
         for ((v2, w2) in graph[v]) {
             if (distances[v2] > w + w2) {
                 distances[v2] = w + w2
