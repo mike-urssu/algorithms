@@ -5,6 +5,7 @@ package tags.dijkstra
  */
 import java.io.BufferedReader
 import java.io.InputStreamReader
+import java.util.PriorityQueue
 
 private val reader = BufferedReader(InputStreamReader(System.`in`))
 private lateinit var graph: Array<MutableList<Pair<Int, Int>>>
@@ -36,34 +37,25 @@ private fun getGraph(n: Int, e: Int): Array<MutableList<Pair<Int, Int>>> {
 
 private fun getDistances(n: Int, k: Int): IntArray {
     val distances = IntArray(n + 1) { Int.MAX_VALUE }
-    val isVisited = BooleanArray(n + 1)
+    val queue = PriorityQueue<Pair<Int, Int>> { it, other ->
+        it.second.compareTo(other.second)
+    }
 
     distances[k] = 0
-    graph[k].forEach { (v, w) -> distances[v] = distances[v].coerceAtMost(w) }
-    isVisited[0] = true
-    isVisited[k] = true
+    queue.add(Pair(k, 0))
+    while (queue.isNotEmpty()) {
+        val (v, w) = queue.poll()
+        if (distances[v] < w) {
+            continue
+        }
 
-    repeat(n - 1) {
-        val i = getIndex(distances, isVisited)
-        graph[i].forEach { (v, w) ->
-            if (!isVisited[v]) {
-                distances[v] = distances[v].coerceAtMost(distances[i] + w)
+        for ((v2, w2) in graph[v]) {
+            if (distances[v2] > w + w2) {
+                distances[v2] = w + w2
+                queue.add(Pair(v2, distances[v2]))
             }
         }
-        isVisited[i] = true
     }
 
     return distances
-}
-
-private fun getIndex(distances: IntArray, isVisited: BooleanArray): Int {
-    var index = 0
-    var min = Int.MAX_VALUE
-    for (i in distances.indices) {
-        if (!isVisited[i] && distances[i] < min) {
-            index = i
-            min = distances[i]
-        }
-    }
-    return index
 }
