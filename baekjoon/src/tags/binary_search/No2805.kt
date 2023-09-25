@@ -1,32 +1,25 @@
 package tags.binary_search
 
-import java.io.BufferedReader
-import java.io.BufferedWriter
-import java.io.InputStreamReader
-import java.io.OutputStreamWriter
-
 /**
  * https://www.acmicpc.net/problem/2805
  */
-private val reader = BufferedReader(InputStreamReader(System.`in`))
-private val writer = BufferedWriter(OutputStreamWriter(System.out))
-
 fun main() {
-    val (_, m) = reader.readLine().split(" ").map { it.toLong() }
-    val numbers = reader.readLine().split(" ").map { it.toLong() }
+    val (_, m) = readln().split(" ").map { it.toInt() }
+    val heights = readln().split(" ").map { it.toLong() }.toLongArray()
+    println(getMaxHeight(heights, m))
+}
 
+private fun getMaxHeight(heights: LongArray, m: Int): Long {
     var low = 0L
-    var high = numbers.max()
+    var high = 2000000000L
     while (low + 1 < high) {
         val mid = (low + high) / 2
-        val sum = numbers.sumOf { (it - mid).coerceAtLeast(0) }
-        if (sum >= m) {
-            low = mid
-        } else {
+        val k = heights.sumOf { maxOf(it - mid, 0) }
+        if (k < m) {
             high = mid
+        } else {
+            low = mid
         }
     }
-
-    writer.write("$low")
-    writer.flush()
+    return low
 }
