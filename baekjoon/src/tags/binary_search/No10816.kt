@@ -1,37 +1,33 @@
 package tags.binary_search
 
-import java.io.BufferedReader
-import java.io.BufferedWriter
-import java.io.InputStreamReader
-import java.io.OutputStreamWriter
-
 /**
  * https://www.acmicpc.net/problem/10816
  */
+import java.io.BufferedReader
+import java.io.InputStreamReader
+
 private val reader = BufferedReader(InputStreamReader(System.`in`))
-private val writer = BufferedWriter(OutputStreamWriter(System.out))
 
 fun main() {
-    reader.readLine().toInt()
-    val cards = reader.readLine().split(" ").map { it.toInt() }.sorted()
-    reader.readLine().toInt()
+    reader.readLine()
+    val cards = reader.readLine().split(" ").map { it.toInt() }.sorted().toIntArray()
+    reader.readLine()
     val numbers = reader.readLine().split(" ").map { it.toInt() }
 
-    numbers.forEach {
-        writer.write("${getLowerBound(cards, it + 1) - getLowerBound(cards, it)} ")
-    }
-    writer.flush()
+    val counts = StringBuffer()
+    numbers.forEach { counts.append("${getLowerBound(cards, it + 1) - getLowerBound(cards, it)} ") }
+    println(counts)
 }
 
-private fun getLowerBound(numbers: List<Int>, number: Int): Int {
+private fun getLowerBound(cards: IntArray, n: Int): Int {
     var low = -1
-    var high = numbers.size
+    var high = cards.size
     while (low + 1 < high) {
         val mid = (low + high) / 2
-        if (numbers[mid] >= number) {
-            high = mid
-        } else {
+        if (cards[mid] < n) {
             low = mid
+        } else {
+            high = mid
         }
     }
     return high
