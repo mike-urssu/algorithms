@@ -57,16 +57,14 @@ private fun isEnemyExist(graph: Array<IntArray>) =
 
 private fun findEnemies(graph: Array<IntArray>): Set<Pair<Int, Int>> {
     val enemies = mutableSetOf<Pair<Int, Int>>()
-    for (a in archers) {
+    archers.forEach { a ->
         val enemy = findEnemy(graph, a)
-        if (enemy.isNotEmpty()) {
-            enemies.add(Pair(enemy[0], enemy[1]))
-        }
+        enemy?.let { enemies.add(it) }
     }
     return enemies
 }
 
-private fun findEnemy(graph: Array<IntArray>, a: Int): List<Int> {
+private fun findEnemy(graph: Array<IntArray>, a: Int): Pair<Int, Int>? {
     var row = -1
     var col = -1
     var minDistance = Int.MAX_VALUE
@@ -83,9 +81,9 @@ private fun findEnemy(graph: Array<IntArray>, a: Int): List<Int> {
     }
 
     return if (row == -1 || col == -1) {
-        emptyList()
+        null
     } else {
-        listOf(row, col)
+        Pair(row, col)
     }
 }
 
