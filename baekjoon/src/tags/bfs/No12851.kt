@@ -22,7 +22,7 @@ private fun getTimeAndCount(n: Int, k: Int): Pair<Int, Int> {
 
     while (queue.isNotEmpty()) {
         val (i, time) = queue.poll()
-        if (times[i] < time) {
+        if (i !in 0..100000 || times[i] < time) {
             continue
         }
 
@@ -33,17 +33,9 @@ private fun getTimeAndCount(n: Int, k: Int): Pair<Int, Int> {
             counts[i] = 1
         }
 
-        if (i - 1 in times.indices) {
-            queue.add(Pair(i - 1, time + 1))
-        }
-
-        if (i * 2 in times.indices) {
-            queue.add(Pair(i * 2, time + 1))
-        }
-
-        if (i + 1 in times.indices) {
-            queue.add(Pair(i + 1, time + 1))
-        }
+        queue.add(Pair(i - 1, time + 1))
+        queue.add(Pair(i * 2, time + 1))
+        queue.add(Pair(i + 1, time + 1))
     }
 
     return Pair(times[k], counts[k])
