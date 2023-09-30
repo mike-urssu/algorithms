@@ -1,4 +1,4 @@
-package tags.binary_search
+package tags.bfs
 
 /**
  * https://www.acmicpc.net/problem/2638
