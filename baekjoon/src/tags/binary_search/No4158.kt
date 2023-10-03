@@ -1,28 +1,38 @@
 package tags.binary_search
 
-import java.io.BufferedReader
-import java.io.BufferedWriter
-import java.io.InputStreamReader
-import java.io.OutputStreamWriter
-
 /**
  * https://www.acmicpc.net/problem/4158
  */
-private val reader = BufferedReader(InputStreamReader(System.`in`))
-private val writer = BufferedWriter(OutputStreamWriter(System.out))
-
 fun main() {
     while (true) {
-        val (n, m) = reader.readLine().split(" ").map { it.toInt() }
+        val (n, m) = readln().split(" ").map { it.toInt() }
         if (n == 0 && m == 0) {
             break
         }
 
-        val cd1 = List(n) { reader.readLine().toInt() }
-        val cd2 = List(m) { reader.readLine().toInt() }
+        val cd1 = IntArray(n) { readln().toInt() }
+        val cd2 = IntArray(n) { readln().toInt() }
 
-        val count = cd2.count { cd1.binarySearch(it) >= 0 }
-        writer.write("$count\n")
+        cd1.binarySearch(1)
+
+        println(cd1.count { binarySearch(cd2, it) })
     }
-    writer.flush()
+}
+
+private fun binarySearch(numbers: IntArray, n: Int): Boolean {
+    var low = -1
+    var high = numbers.size
+
+    while (low + 1 < high) {
+        val mid = (low + high) / 2
+        if (numbers[mid] < n) {
+            low = mid
+        } else if (numbers[mid] == n) {
+            return true
+        } else {
+            high = mid
+        }
+    }
+
+    return false
 }
