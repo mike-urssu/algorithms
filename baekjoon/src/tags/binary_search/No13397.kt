@@ -1,49 +1,40 @@
 package tags.binary_search
 
-import java.io.BufferedReader
-import java.io.BufferedWriter
-import java.io.InputStreamReader
-import java.io.OutputStreamWriter
-import kotlin.math.abs
-
 /**
  * https://www.acmicpc.net/problem/13397
  */
-private val reader = BufferedReader(InputStreamReader(System.`in`))
-private val writer = BufferedWriter(OutputStreamWriter(System.out))
-
 fun main() {
-    val (_, m) = reader.readLine().split(" ").map { it.toInt() }
-    val numbers = reader.readLine().split(" ").map { it.toInt() }
+    val (n, m) = readln().split(" ").map { it.toInt() }
+    val numbers = readln().split(" ").map { it.toInt() }.toIntArray()
+    println(getLeastMax(n, m, numbers))
+}
 
+private fun getLeastMax(n: Int, m: Int, numbers: IntArray): Int {
     var low = -1
-    var high = numbers.max()
+    var high = 20001
     while (low + 1 < high) {
         val mid = (low + high) / 2
-        var group = 1
-
-        var min = numbers.first()
-        var max = numbers.first()
-
-        for (i in 1 until numbers.size) {
-            val number = numbers[i]
-            if (abs(min - number) > mid || abs(max - number) > mid) {
-                min = number
-                max = number
-                group++
-            } else {
-                min = min.coerceAtMost(number)
-                max = max.coerceAtLeast(number)
-            }
-        }
-
-        if (group > m) {
-            low = mid
-        } else {
+        if (isValid(n, m, numbers, mid)) {
             high = mid
+        } else {
+            low = mid
         }
     }
+    return high
+}
 
-    writer.write("$high")
-    writer.flush()
+private fun isValid(n: Int, m: Int, numbers: IntArray, mid: Int): Boolean {
+    var group = 1
+    var min = numbers[0]
+    var max = numbers[0]
+    for (i in 1 until n) {
+        max = max.coerceAtLeast(numbers[i])
+        min = min.coerceAtMost(numbers[i])
+        if (max - min > mid) {
+            max = numbers[i]
+            min = numbers[i]
+            group++
+        }
+    }
+    return group <= m
 }
