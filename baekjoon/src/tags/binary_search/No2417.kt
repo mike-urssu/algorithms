@@ -1,30 +1,23 @@
 package tags.binary_search
 
-import java.io.BufferedReader
-import java.io.BufferedWriter
-import java.io.InputStreamReader
-import java.io.OutputStreamWriter
-import java.math.BigInteger
-
 /**
  * https://www.acmicpc.net/problem/2417
  */
-private val reader = BufferedReader(InputStreamReader(System.`in`))
-private val writer = BufferedWriter(OutputStreamWriter(System.out))
-
 fun main() {
-    val number = reader.readLine().toBigInteger()
+    val n = readln().toLong()
+    println(sqrt(n))
+}
 
-    var low = BigInteger.valueOf(-1L)
-    var high = BigInteger.valueOf(Long.MAX_VALUE)
-    while (low.plus(BigInteger.ONE) < high) {
-        val mid = (low + high).divide(BigInteger.valueOf(2))
-        if (mid.pow(2) >= number) {
+private fun sqrt(n: Long): Long {
+    var low = -1L
+    var high = 3037000500L
+    while (low + 1 < high) {
+        val mid = (low + high) shr 1
+        if (mid * mid >= n) {
             high = mid
         } else {
             low = mid
         }
     }
-    writer.write("$high")
-    writer.flush()
+    return high
 }
