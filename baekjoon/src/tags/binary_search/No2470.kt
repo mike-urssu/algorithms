@@ -1,40 +1,45 @@
 package tags.binary_search
 
-import java.io.BufferedReader
-import java.io.BufferedWriter
-import java.io.InputStreamReader
-import java.io.OutputStreamWriter
-import kotlin.math.abs
-
 /**
  * https://www.acmicpc.net/problem/2470
  */
-private val reader = BufferedReader(InputStreamReader(System.`in`))
-private val writer = BufferedWriter(OutputStreamWriter(System.out))
+import kotlin.math.abs
 
 fun main() {
-    reader.readLine()
-    val numbers = reader.readLine().split(" ").map { it.toInt() }.sorted()
-    val solutions = intArrayOf(numbers.first(), numbers.last())
+    val n = readln().toInt()
+    val numbers = readln().split(" ").map { it.toInt() }.sorted().toIntArray()
+    println(getSolutions(n, numbers).joinToString(" "))
+}
 
-    var low = 0
-    var high = numbers.lastIndex
-    var min = solutions.sum()
-    while (low < high) {
-        val sum = numbers[low] + numbers[high]
-        if (abs(sum) < abs(min)) {
-            min = sum
-            solutions[0] = numbers[low]
-            solutions[1] = numbers[high]
+private fun getSolutions(n: Int, numbers: IntArray): IntArray {
+    val solutions = IntArray(2) { 1000000001 }
+    for (i in 0 until numbers.lastIndex) {
+        val j = getOtherSolution(n, numbers, i)
+        if (isCloserToZero(numbers, i, j, solutions)) {
+            solutions[0] = numbers[i]
+            solutions[1] = numbers[j]
         }
-
-        if (sum >= 0) {
-            high--
-        } else {
-            low++
+        if (i != j - 1 && isCloserToZero(numbers, i, j - 1, solutions)) {
+            solutions[0] = numbers[i]
+            solutions[1] = numbers[j - 1]
         }
     }
-
-    writer.write(solutions.joinToString(" "))
-    writer.flush()
+    return solutions
 }
+
+private fun getOtherSolution(n: Int, numbers: IntArray, index: Int): Int {
+    var low = index
+    var high = n - 1
+    while (low + 1 < high) {
+        val mid = (low + high) shr 1
+        if (-numbers[index] <= numbers[mid]) {
+            high = mid
+        } else {
+            low = mid
+        }
+    }
+    return high
+}
+
+private fun isCloserToZero(numbers: IntArray, i: Int, j: Int, solutions: IntArray) =
+    abs(numbers[i] + numbers[j]) < abs(solutions.sum())
