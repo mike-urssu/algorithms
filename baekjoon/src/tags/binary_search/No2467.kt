@@ -1,38 +1,42 @@
 package tags.binary_search
 
-import java.io.BufferedReader
-import java.io.BufferedWriter
-import java.io.InputStreamReader
-import java.io.OutputStreamWriter
-import kotlin.math.abs
-
 /**
  * https://www.acmicpc.net/problem/2467
  */
-private val reader = BufferedReader(InputStreamReader(System.`in`))
-private val writer = BufferedWriter(OutputStreamWriter(System.out))
+import kotlin.math.abs
 
 fun main() {
-    reader.readLine()
-    val numbers = reader.readLine().split(" ").map { it.toInt() }
+    val n = readln().toInt()
+    val numbers = readln().split(" ").map { it.toInt() }.toIntArray()
+    println(getSolutions(n, numbers).joinToString(" "))
+}
 
-    val solutions = intArrayOf(numbers.first(), numbers.last())
-    var low = 0
-    var high = numbers.lastIndex
-    while (low < high) {
-        val sum = numbers[low] + numbers[high]
-        if (abs(sum) < abs(solutions.sum())) {
-            solutions[0] = numbers[low]
-            solutions[1] = numbers[high]
+private fun getSolutions(n: Int, numbers: IntArray): IntArray {
+    val solutions = IntArray(2) { 1000000001 }
+    for (i in 0 until n - 1) {
+        val j = getLowerBound(numbers, i + 1, -numbers[i])
+        if (abs(numbers[i] + numbers[j]) < abs(solutions.sum())) {
+            solutions[0] = numbers[i]
+            solutions[1] = numbers[j]
         }
-
-        if (sum >= 0) {
-            high--
-        } else {
-            low++
+        if (i != j - 1 && abs(numbers[i] + numbers[j - 1]) < abs(solutions.sum())) {
+            solutions[0] = numbers[i]
+            solutions[1] = numbers[j - 1]
         }
     }
+    return solutions
+}
 
-    writer.write(solutions.joinToString(" "))
-    writer.flush()
+private fun getLowerBound(numbers: IntArray, index: Int, n: Int): Int {
+    var low = index
+    var high = numbers.lastIndex
+    while (low + 1 < high) {
+        val mid = (low + high) shr 1
+        if (numbers[mid] >= n) {
+            high = mid
+        } else {
+            low = mid
+        }
+    }
+    return high
 }
