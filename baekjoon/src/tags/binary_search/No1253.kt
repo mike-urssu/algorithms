@@ -1,50 +1,42 @@
 package tags.binary_search
 
-import java.io.BufferedReader
-import java.io.BufferedWriter
-import java.io.InputStreamReader
-import java.io.OutputStreamWriter
-
 /**
  * https://www.acmicpc.net/problem/1253
  */
-private val reader = BufferedReader(InputStreamReader(System.`in`))
-private val writer = BufferedWriter(OutputStreamWriter(System.out))
-
 fun main() {
-    reader.readLine()
-    val numbers = reader.readLine().split(" ").map { it.toInt() }.sorted()
-    var count = 0
-
-    numbers.forEachIndexed { index, number ->
-        if (isGoodNumber(numbers, index, number)) {
-            count++
-        }
-    }
-
-    writer.write("$count")
-    writer.flush()
+    val n = readln().toInt()
+    val numbers = readln().split(" ").map { it.toInt() }.sorted().toIntArray()
+    val count = (0 until n).count { i -> canMakeN(n, numbers, numbers[i], i) }
+    println(count)
 }
 
-private fun isGoodNumber(numbers: List<Int>, index: Int, number: Int): Boolean {
-    var low = 0
-    var high = numbers.lastIndex
+private fun canMakeN(n: Int, numbers: IntArray, sum: Int, index: Int): Boolean {
+    for (i in 0 until n) {
+        if (i == index) {
+            continue
+        }
 
-    while (low < high) {
-        if (low == index) {
-            low++
-        } else if (high == index) {
-            high--
-        } else {
-            val sum = numbers[low] + numbers[high]
-            if (sum == number) {
+        val indices = getLowerBound(numbers, sum - numbers[i]) until getLowerBound(numbers, sum - numbers[i] + 1)
+        for (j in indices) {
+            if (j != index && j != i && numbers[i] + numbers[j] == sum) {
                 return true
-            } else if (sum > number) {
-                high--
-            } else {
-                low++
             }
         }
     }
+
     return false
+}
+
+private fun getLowerBound(numbers: IntArray, n: Int): Int {
+    var low = -1
+    var high = numbers.lastIndex
+    while (low + 1 < high) {
+        val mid = (low + high) shr 1
+        if (numbers[mid] >= n) {
+            high = mid
+        } else {
+            low = mid
+        }
+    }
+    return high
 }
