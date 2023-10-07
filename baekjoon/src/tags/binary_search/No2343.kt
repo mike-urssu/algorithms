@@ -1,47 +1,44 @@
 package tags.binary_search
 
-import java.io.BufferedReader
-import java.io.BufferedWriter
-import java.io.InputStreamReader
-import java.io.OutputStreamWriter
-
 /**
  * https://www.acmicpc.net/problem/2343
  */
-private val reader = BufferedReader(InputStreamReader(System.`in`))
-private val writer = BufferedWriter(OutputStreamWriter(System.out))
-
 fun main() {
-    val (_, m) = reader.readLine().split(" ").map { it.toInt() }
-    val numbers = reader.readLine().split(" ").map { it.toInt() }
+    val (_, m) = readln().split(" ").map { it.toInt() }
+    val minutes = readln().split(" ").map { it.toInt() }.toIntArray()
+    println(getLeastSize(m, minutes))
+}
 
+private fun getLeastSize(m: Int, minutes: IntArray): Int {
     var low = 0
     var high = 1000000000
     while (low + 1 < high) {
-        val mid = (low + high) / 2
-        if (numbers.any { it > mid }) {
+        val mid = (low + high) shr 1
+        if (minutes.any { it > mid }) {
             low = mid
-        } else {
-            var count = 0
-            var sum = 0
-            for (number in numbers) {
-                if (sum + number > mid) {
-                    sum = number
-                    count++
-                } else {
-                    sum += number
-                }
-            }
-            count++
+            continue
+        }
 
-            if (count > m) {
-                low = mid
-            } else {
-                high = mid
-            }
+        val chunk = chunk(minutes, mid)
+        if (chunk <= m) {
+            high = mid
+        } else {
+            low = mid
         }
     }
+    return high
+}
 
-    writer.write("$high")
-    writer.flush()
+private fun chunk(minutes: IntArray, chunkSize: Int): Int {
+    var chunk = 1
+    var sum = 0
+    for (m in minutes) {
+        if (sum + m <= chunkSize) {
+            sum += m
+        } else {
+            sum = m
+            chunk++
+        }
+    }
+    return chunk
 }
