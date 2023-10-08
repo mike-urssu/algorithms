@@ -1,59 +1,50 @@
 package tags.binary_search
 
-import java.io.BufferedReader
-import java.io.BufferedWriter
-import java.io.InputStreamReader
-import java.io.OutputStreamWriter
-
 /**
  * https://www.acmicpc.net/problem/7453
  */
-private val reader = BufferedReader(InputStreamReader(System.`in`))
-private val writer = BufferedWriter(OutputStreamWriter(System.out))
-
 fun main() {
-    val n = reader.readLine().toInt()
-    val arrayA = LongArray(n)
-    val arrayB = LongArray(n)
-    val arrayC = LongArray(n)
-    val arrayD = LongArray(n)
-
+    val n = readln().toInt()
+    val arrayA = IntArray(n)
+    val arrayB = IntArray(n)
+    val arrayC = IntArray(n)
+    val arrayD = IntArray(n)
     repeat(n) { i ->
-        val (a, b, c, d) = reader.readLine().split(" ").map { it.toLong() }
+        val (a, b, c, d) = readln().split(" ").map { it.toInt() }
         arrayA[i] = a
         arrayB[i] = b
         arrayC[i] = c
         arrayD[i] = d
     }
-
-    val newArray1 = mergeArrays(arrayA, arrayB)
-    val newArray2 = mergeArrays(arrayC, arrayD)
-    val count = newArray1.sumOf { getLowerBound(newArray2, -it.toInt() + 1) - getLowerBound(newArray2, -it.toInt()) }
-
-    writer.write("$count")
-    writer.flush()
+    println(countWhoseSumIsZero(n, arrayA, arrayB, arrayC, arrayD))
 }
 
-private fun mergeArrays(array1: LongArray, array2: LongArray): LongArray {
-    val newArray = LongArray(array1.size * array2.size)
-    for (i in array1.indices) {
-        for (j in array2.indices) {
-            newArray[array1.size * i + j] = array1[i] + array2[j]
+private fun countWhoseSumIsZero(n: Int, arrayA: IntArray, arrayB: IntArray, arrayC: IntArray, arrayD: IntArray): Long {
+    val sum1 = merge(n, arrayA, arrayB)
+    val sum2 = merge(n, arrayC, arrayD)
+    return sum1.sumOf { (getLowerBound(sum2, -it + 1) - getLowerBound(sum2, -it)).toLong() }
+}
+
+private fun merge(n: Int, array1: IntArray, array2: IntArray): IntArray {
+    val array = IntArray(n * n)
+    for (i in 0 until n) {
+        for (j in 0 until n) {
+            array[i * n + j] = array1[i] + array2[j]
         }
     }
-    return newArray.sortedArray()
+    return array.sortedArray()
 }
 
-private fun getLowerBound(numbers: LongArray, number: Int): Long {
+private fun getLowerBound(numbers: IntArray, n: Int): Int {
     var low = -1
     var high = numbers.size
     while (low + 1 < high) {
-        val mid = (low + high) / 2
-        if (numbers[mid] >= number) {
+        val mid = (low + high) shr 1
+        if (numbers[mid] >= n) {
             high = mid
         } else {
             low = mid
         }
     }
-    return high.toLong()
+    return high
 }
