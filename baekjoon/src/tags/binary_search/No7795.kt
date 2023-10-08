@@ -15,7 +15,7 @@ fun main() {
 }
 
 private fun getLowerBound(numbers: IntArray, n: Int): Int {
-    var low = 0
+    var low = -1
     var high = numbers.size
     while (low + 1 < high) {
         val mid = (low + high) / 2
@@ -27,10 +27,5 @@ private fun getLowerBound(numbers: IntArray, n: Int): Int {
             low = mid
         }
     }
-
-    return if (numbers[low] >= n) {
-        low
-    } else {
-        low + 1
-    }
+    return high
 }
