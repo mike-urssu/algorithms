@@ -1,31 +1,42 @@
 package tags.binary_search
 
-import java.io.BufferedReader
-import java.io.BufferedWriter
-import java.io.InputStreamReader
-import java.io.OutputStreamWriter
-
 /**
  * https://www.acmicpc.net/problem/2776
  */
-private val reader = BufferedReader(InputStreamReader(System.`in`))
+import java.io.BufferedWriter
+import java.io.OutputStreamWriter
+
 private val writer = BufferedWriter(OutputStreamWriter(System.out))
 
 fun main() {
-    val testCase = reader.readLine().toInt()
-    repeat(testCase) {
-        reader.readLine()
-        val numbers1 = reader.readLine().split(" ").map { it.toInt() }.sorted()
-        reader.readLine()
-        val numbers2 = reader.readLine().split(" ").map { it.toInt() }
-
-        numbers2.forEach { number ->
-            if (numbers1.binarySearch(number) >= 0) {
-                writer.write("1\n")
-            } else {
+    val t = readln().toInt()
+    repeat(t) {
+        val n = readln().toInt()
+        val numbers1 = readln().split(" ").map { it.toInt() }.sorted().toIntArray()
+        readln()
+        val numbers2 = readln().split(" ").map { it.toInt() }
+        numbers2.forEach {
+            val lowerBound = getLowerBound(numbers1, it)
+            if (lowerBound == n || numbers1[lowerBound] != it) {
                 writer.write("0\n")
+            } else {
+                writer.write("1\n")
             }
         }
+        writer.flush()
     }
-    writer.flush()
+}
+
+private fun getLowerBound(numbers: IntArray, n: Int): Int {
+    var low = -1
+    var high = numbers.size
+    while (low + 1 < high) {
+        val mid = (low + high) shr 1
+        if (numbers[mid] >= n) {
+            high = mid
+        } else {
+            low = mid
+        }
+    }
+    return high
 }
