@@ -14,20 +14,22 @@ private fun getLeastTime(times: IntArray, m: Int): Long {
     var high = 1000000000 * 1000000000L
     while (low + 1 < high) {
         val mid = (low + high) shr 1
-
-        var sum = 0L
-        for (t in times) {
-            sum += mid / t
-            if (sum >= m) {
-                break
-            }
-        }
-
-        if (sum >= m) {
+        if (isValid(times, mid, m)) {
             high = mid
         } else {
             low = mid
         }
     }
     return high
+}
+
+private fun isValid(times: IntArray, time: Long, m: Int): Boolean {
+    var sum = 0L
+    for (t in times) {
+        sum += time / t
+        if (sum >= m) {
+            return true
+        }
+    }
+    return false
 }
