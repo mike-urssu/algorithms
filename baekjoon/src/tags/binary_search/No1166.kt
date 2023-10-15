@@ -1,31 +1,26 @@
 package tags.binary_search
 
-import java.io.BufferedReader
-import java.io.BufferedWriter
-import java.io.InputStreamReader
-import java.io.OutputStreamWriter
-
 /**
  * https://www.acmicpc.net/problem/1166
  */
-private val reader = BufferedReader(InputStreamReader(System.`in`))
-private val writer = BufferedWriter(OutputStreamWriter(System.out))
-
 fun main() {
-    val (n, l, w, h) = reader.readLine().split(" ").map { it.toLong() }
+    val (n, l, w, h) = readln().split(" ").map { it.toInt() }
+    println(findMaxA(n, l, w, h))
+}
+
+private fun findMaxA(n: Int, l: Int, w: Int, h: Int): Double {
     var low = 0.0
     var high = 1000000001.0
-
     repeat(1000) {
         val mid = (low + high) / 2
-        val boxes = (l / mid).toLong() * (w / mid).toLong() * (h / mid).toLong()
-        if (boxes >= n) {
+        if (isValid(n, l, w, h, mid)) {
             low = mid
         } else {
             high = mid
         }
     }
-
-    writer.write("$low")
-    writer.flush()
+    return low
 }
+
+private fun isValid(n: Int, l: Int, w: Int, h: Int, a: Double) =
+    (l / a).toLong() * (w / a).toLong() * (h / a).toLong() >= n.toLong()
