@@ -4,7 +4,7 @@ package tags.dp
  * https://www.acmicpc.net/problem/12852
  */
 private val paths = IntArray(1000001) { Int.MAX_VALUE }
-private val counts = IntArray(1000001)
+private val counts = IntArray(1000001) { Int.MAX_VALUE }
 
 fun main() {
     val n = readln().toInt()
@@ -22,20 +22,27 @@ fun main() {
 private fun setPathsAndCounts() {
     paths[0] = 0
     paths[1] = 0
+    counts[0] = 0
+    counts[1] = 0
     for (i in 2..1000000) {
-        val a = if (i % 3 == 0) {
-            i / 3
-        } else {
-            Int.MAX_VALUE
+        if (i % 3 == 0) {
+            if (counts[i] > counts[i / 3]) {
+                paths[i] = i / 3
+                counts[i] = counts[i / 3]
+            }
         }
-        val b = if (i % 2 == 0) {
-            i / 2
-        } else {
-            Int.MAX_VALUE
+
+        if (i % 2 == 0) {
+            if (counts[i] > counts[i / 2]) {
+                paths[i] = i / 2
+                counts[i] = counts[i / 2]
+            }
         }
-        val c = i - 1
-        val count = listOf(a, b, c).filter { it != Int.MAX_VALUE }.minOf { counts[it] }
-        paths[i] = listOf(a, b, c).filter { it != Int.MAX_VALUE }.first { counts[it] == count }
-        counts[i] = count + 1
+
+        if (counts[i] > counts[i - 1]) {
+            paths[i] = i - 1
+            counts[i] = counts[i - 1]
+        }
+        counts[i]++
     }
 }
