@@ -25,11 +25,7 @@ fun main() {
 private fun union(a: Int, b: Int) {
     val parentA = find(a)
     val parentB = find(b)
-    if (parentA >= parentB) {
-        parents[parentA] = parentB
-    } else {
-        parents[parentB] = parentA
-    }
+    parents[parentA] = parentB
 }
 
 private fun find(n: Int): Int {
