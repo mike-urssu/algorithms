@@ -8,7 +8,7 @@ import kotlin.math.pow
 fun main() {
     val (n, r, c) = readln().split(" ").map { it.toInt() }
     val length = getLength(n, r, c)
-    println(getNumber(length, r, c))
+    println(getArea(length, r, c))
 }
 
 private fun getLength(n: Int, r: Int, c: Int): Int {
@@ -25,14 +25,14 @@ private fun getLength(n: Int, r: Int, c: Int): Int {
     return length - 1
 }
 
-private fun getNumber(n: Int, r: Int, c: Int): Int {
-    return if (n == 0) {
-        r * 2 + c
-    } else {
-        val half = pow(2, n)
-        (r / half * 2 + c / half) * pow(4, n) +
-                getNumber(n - 1, r % half, c % half)
+private fun getArea(n: Int, r: Int, c: Int): Int {
+    val length = 2.0.pow(n).toInt()
+    var area = countSquare(r, c, length) * (length * length)
+    if (n != 0) {
+        area += getArea(n - 1, r % length, c % length)
     }
+    return area
 }
 
-private fun pow(n: Int, m: Int) = n.toDouble().pow(m).toInt()
+private fun countSquare(r: Int, c: Int, length: Int) =
+    r / length * 2 + c / length
