@@ -5,6 +5,7 @@ package tags.geometry
  */
 import kotlin.math.PI
 import kotlin.math.cos
+import kotlin.math.sin
 
 private lateinit var numbers: DoubleArray
 private val combination = DoubleArray(8)
@@ -38,8 +39,11 @@ private fun combination(index: Int) {
 
 private fun isConvexPolygon() =
     (0 until 8).all { i ->
-        val p1 = combination[i]
-        val p2 = combination[(i + 1) % 8] * cos(PI / 4)
-        val p3 = combination[(i + 2) % 8]
-        -p1 / p3 * p2 + p1 <= p2
+        val p1 = Pair(0.0, combination[i])
+        val p2 = Pair(combination[(i + 1) % 8] * cos(PI / 4), combination[(i + 1) % 8] * sin(PI / 4))
+        val p3 = Pair(combination[(i + 2) % 8], 0.0)
+        isConvex(p1, p2, p3)
     }
+
+private fun isConvex(p1: Pair<Double, Double>, p2: Pair<Double, Double>, p3: Pair<Double, Double>) =
+    p2.second >= (p3.second - p1.second) / (p3.first - p1.first) * p2.first + p1.second
