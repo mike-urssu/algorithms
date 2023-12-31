@@ -36,7 +36,7 @@ private fun getGraph(m: Int): List<Triple<Int, Int, Int>> {
 private fun getTimes(n: Int, graph: List<Triple<Int, Int, Int>>): LongArray {
     val times = LongArray(n + 1) { Long.MAX_VALUE }
     times[1] = 0
-    (1 until n).forEach { _ ->
+    repeat(n - 1) {
         graph.forEach { (src, dst, time) ->
             if (times[src] != Long.MAX_VALUE && times[dst] > times[src] + time) {
                 times[dst] = times[src] + time
