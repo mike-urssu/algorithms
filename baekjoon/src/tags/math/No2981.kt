@@ -11,7 +11,7 @@ fun main() {
     val numbers = IntArray(n) { readln().toInt() }.sortedArrayDescending()
 
     val diff = IntArray(n - 1) { i -> numbers[i] - numbers[i + 1] }
-    val gcd = diff.fold(0) { n1, n2 -> gcd(n1, n2) }
+    val gcd = diff.reduce { n1, n2 -> gcd(n1, n2) }
 
     val factors = getFactors(gcd)
     factors.remove(1)
