@@ -8,27 +8,18 @@ import java.util.Stack
 fun main() {
     val n = readln().toInt()
     val heights = IntArray(n) { readln().toInt() }
-    println(count(n, heights))
+    println(count(heights))
 }
 
-private fun count(n: Int, heights: IntArray): Long {
+private fun count(heights: IntArray): Long {
     var count = 0L
-    val stack = Stack<Pair<Int, Int>>()
-    (n - 1 downTo 0).forEach { i ->
-        var buildings = 0
-        while (stack.isNotEmpty()) {
-            val (h, b) = stack.peek()
-            if (h >= heights[i]) {
-                break
-            }
+    val stack = Stack<Int>()
+    heights.forEach {
+        while (stack.isNotEmpty() && stack.peek() <= it) {
             stack.pop()
-            buildings += b + 1
-            count += b
         }
-        stack.push(Pair(heights[i], buildings))
-    }
-    while (stack.isNotEmpty()) {
-        count += stack.pop().second
+        count += stack.size
+        stack.push(it)
     }
     return count
 }
