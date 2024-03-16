@@ -1,4 +1,4 @@
-package tags.tree
+package tags.trees
 
 /**
  * https://www.acmicpc.net/problem/5639
