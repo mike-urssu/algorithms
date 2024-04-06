@@ -1,4 +1,4 @@
-package tags.dfs
+package tags.bfs
 
 /**
  * https://www.acmicpc.net/problem/1194
