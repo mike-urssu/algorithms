@@ -3,50 +3,46 @@ package tags.data_structures
 /**
  * https://www.acmicpc.net/problem/15961
  */
-import java.util.LinkedList
-import java.util.Queue
-
 private val reader = System.`in`.bufferedReader()
 
 fun main() {
-    val queue1: Queue<Int> = LinkedList()
-    val queue2: Queue<Int> = LinkedList()
-    val counts = mutableMapOf<Int, Int>()
-    var max = 0
+    val (n, d, k, c) = reader.readLine().split(" ").map { it.toInt() }
+    val foods = IntArray(n) { reader.readLine().toInt() }
+    val counts = IntArray(d + 1)
+    var count = 0
 
-    val (n, _, k, c) = reader.readLine().split(" ").map { it.toInt() }
+    var left = 0
+    var right = 0
+    var max: Int
 
-    repeat(k) {
-        val food = reader.readLine().toInt()
-        queue2.add(food)
-        counts[food] = (counts[food] ?: 0) + 1
-        max = max.coerceAtLeast(counts.size)
+    repeat(k) { i ->
+        if (counts[foods[i]] == 0) {
+            count++
+        }
+        counts[foods[i]]++
+        right++
     }
-
-    repeat(n - k) {
-        val food = reader.readLine().toInt()
-        queue1.add(food)
-    }
+    max = count
 
     repeat(n) {
-        val p2 = queue2.poll()
-        counts[p2] = counts[p2]!! - 1
-        if (counts[p2] == 0) {
-            counts.remove(p2)
+        if (counts[foods[left]] == 1) {
+            count--
         }
-        queue1.add(p2)
+        counts[foods[left]]--
 
-        val p1 = queue1.poll()
-        queue2.add(p1)
-        counts[p1] = (counts[p1] ?: 0) + 1
+        if (counts[foods[right]] == 0) {
+            count++
+        }
+        counts[foods[right]]++
 
-        val distinctCount = if (counts.containsKey(c)) {
-            counts.size
+        left = (left + 1) % n
+        right = (right + 1) % n
+
+        max = if (counts[c] == 0) {
+            max.coerceAtLeast(count + 1)
         } else {
-            counts.size + 1
+            max.coerceAtLeast(count)
         }
-        max = max.coerceAtLeast(distinctCount)
     }
-
     println(max)
 }
