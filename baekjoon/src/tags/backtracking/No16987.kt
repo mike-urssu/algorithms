@@ -25,7 +25,7 @@ fun main() {
 }
 
 private fun breakEggs(n: Int, src: Int) {
-    if (n == src) {
+    if (n <= src) {
         return
     }
 
@@ -34,18 +34,18 @@ private fun breakEggs(n: Int, src: Int) {
         return
     }
 
-    for (j in 0 until n) {
-        if (src == j) {
+    for (i in 0 until n) {
+        if (src == i) {
             continue
         }
 
-        if (durabilities[j] > 0) {
-            durabilities[src] -= weights[j]
-            durabilities[j] -= weights[src]
+        if (durabilities[i] > 0) {
+            durabilities[src] -= weights[i]
+            durabilities[i] -= weights[src]
             max = max.coerceAtLeast(durabilities.count { it <= 0 })
             breakEggs(n, src + 1)
-            durabilities[src] += weights[j]
-            durabilities[j] += weights[src]
+            durabilities[src] += weights[i]
+            durabilities[i] += weights[src]
         }
     }
 }
