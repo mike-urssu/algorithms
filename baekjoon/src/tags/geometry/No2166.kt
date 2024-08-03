@@ -17,7 +17,7 @@ fun main() {
     println(String.format("%.1f", (area * 10).roundToLong() / 10.0))
 }
 
-fun calculateArea(points: Array<Pair<Double, Double>>): Double {
+private fun calculateArea(points: Array<Pair<Double, Double>>): Double {
     var area = 0.0
     val n = points.size
     for (i in 0 until n) {
