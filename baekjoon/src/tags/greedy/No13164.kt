@@ -1,4 +1,4 @@
-package tags.binary_search
+package tags.greedy
 
 /**
  * https://www.acmicpc.net/problem/13164
