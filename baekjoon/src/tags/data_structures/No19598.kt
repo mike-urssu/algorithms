@@ -19,23 +19,14 @@ fun main() {
         }
     }
 
-    val queue = PriorityQueue<Pair<Int, Int>> { it, other ->
-        val c1 = -it.first.compareTo(other.first)
-        if (c1 != 0) {
-            c1
-        } else {
-            it.second.compareTo(other.second)
-        }
-    }
-    queue.add(times[0])
+    val queue = PriorityQueue(Comparator.reverseOrder<Int>())
+    queue.add(times[0].first)
     (1 until n).forEach { i ->
         val (from, to) = times[i]
-        if (queue.peek().first < to) {
-            queue.add(times[i])
-        } else {
-            val (_, t) = queue.poll()
-            queue.add(from to t)
+        if (queue.peek() >= to) {
+            queue.poll()
         }
+        queue.add(from)
     }
     println(queue.size)
 }
