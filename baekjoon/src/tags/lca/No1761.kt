@@ -60,15 +60,11 @@ private fun lca(a: Int, b: Int): Int {
     var _b = b
 
     if (depths[_a] != depths[_b]) {
-        var diff = depths[_a] - depths[_b]
-        var j = 0
-        while (diff > 0) {
-            if (diff % 2 == 1) {
+        (16 downTo 0).forEach { j ->
+            if (1 shl j <= depths[_a] - depths[_b]) {
                 distance += distances[_a][j]
                 _a = parents[_a][j]
             }
-            diff = diff shr 1
-            j++
         }
     }
 
