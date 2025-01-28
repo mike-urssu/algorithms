@@ -8,8 +8,8 @@ import java.util.Queue
 import kotlin.system.exitProcess
 
 private lateinit var isVisited: BooleanArray
-private lateinit var graph: Array<BooleanArray>
-private val indegrees = IntArray(26)
+private lateinit var graph: Array<MutableList<Int>>
+private val indegree = IntArray(26)
 
 fun main() {
     val n = readln().toInt()
@@ -25,28 +25,19 @@ private fun isVisited(words: Array<IntArray>): BooleanArray {
     return isVisited
 }
 
-private fun graph(n: Int, words: Array<IntArray>): Array<BooleanArray> {
-    val graph = Array(26) { BooleanArray(26) }
+private fun graph(n: Int, words: Array<IntArray>): Array<MutableList<Int>> {
+    val graph = Array(26) { mutableListOf<Int>() }
     for (i in 0 until n - 1) {
         for (j in words[i].indices) {
-            if (j < words[i + 1].size) {
-                if (words[i][j] != words[i + 1][j]) {
-                    if (graph[words[i][j]][words[i + 1][j]]) {
-                        break
-                    }
-
-                    if (graph[words[i + 1][j]][words[i][j]]) {
-                        println("!")
-                        exitProcess(0)
-                    }
-
-                    graph[words[i][j]][words[i + 1][j]] = true
-                    indegrees[words[i + 1][j]]++
-                    break
-                }
-            } else {
+            if (j >= words[i + 1].size) {
                 println("!")
                 exitProcess(0)
+            }
+
+            if (words[i][j] != words[i + 1][j]) {
+                graph[words[i][j]].add(words[i + 1][j])
+                indegree[words[i + 1][j]]++
+                break
             }
         }
     }
@@ -54,35 +45,31 @@ private fun graph(n: Int, words: Array<IntArray>): Array<BooleanArray> {
 }
 
 private fun topologySort(): String {
-    val queue: Queue<Int> = LinkedList<Int>().apply {
-        (0 until 26).forEach { i ->
-            if (isVisited[i] && indegrees[i] == 0) {
-                this.add(i)
-            }
-        }
-    }
+    val queue: Queue<Int> = LinkedList()
+    val visitedLetters = (0 until 26).filter { isVisited[it] }
+    queue.addAll(visitedLetters.filter { indegree[it] == 0 })
 
+    var isVarious = false
     val order = StringBuilder()
-    while (queue.isNotEmpty()) {
-        if (queue.size > 1) {
-            return "?"
+    repeat(visitedLetters.size) {
+        if (queue.isEmpty()) {
+            return "!"
+        } else if (queue.size >= 2) {
+            isVarious = true
         }
 
-        val i = queue.poll()
-        order.append('a' + i)
-        (0 until 26).forEach { j ->
-            if (graph[i][j]) {
-                graph[i][j] = false
-                indegrees[j]--
-                if (indegrees[j] == 0) {
-                    queue.add(j)
-                }
+        val p = queue.poll()
+        order.append('a' + p)
+        graph[p].forEach {
+            if (--indegree[it] == 0) {
+                queue.add(it)
             }
         }
     }
-    if (indegrees.any { it > 0 }) {
-        return "!"
-    }
 
-    return order.toString()
+    return if (isVarious) {
+        "?"
+    } else {
+        order.toString()
+    }
 }
