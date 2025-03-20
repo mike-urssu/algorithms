@@ -7,47 +7,34 @@ fun main() {
     val t = readln().toInt()
     repeat(t) {
         val (b1, b2) = readln().split(" ")
-        val sum = if (b1.length >= b2.length) {
-            sum(b1, b2)
-        } else {
-            sum(b2, b1)
-        }
-        println(sum)
+        println(sum(b1, b2))
     }
 }
 
 private fun sum(b1: String, b2: String): String {
     val binary = StringBuilder()
 
-    var i1 = b1.lastIndex
-    var i2 = b2.lastIndex
-    var upper = 0
+    var i = b1.lastIndex
+    var j = b2.lastIndex
+    var carry = 0
 
-    while (i2 >= 0) {
-        val sum = b1[i1].digitToInt() + b2[i2].digitToInt() + upper
-        binary.append(sum % 2)
-        i1--
-        i2--
-        upper = if (sum >= 2) {
-            1
+    while (i >= 0 || j >= 0 || carry > 0) {
+        val bit1 = if (i >= 0) {
+            b1[i] - '0'
         } else {
             0
         }
-    }
-
-    while (i1 >= 0) {
-        val sum = b1[i1].digitToInt() + upper
-        binary.append(sum % 2)
-        i1--
-        upper = if (sum >= 2) {
-            1
+        val bit2 = if (j >= 0) {
+            b2[j] - '0'
         } else {
             0
         }
-    }
+        val sum = bit1 + bit2 + carry
 
-    if (upper == 1) {
-        binary.append(1)
+        binary.append(sum % 2)
+        i--
+        j--
+        carry = sum / 2
     }
 
     return binary.dropLastWhile { it == '0' }.reversed().toString().ifEmpty { "0" }
